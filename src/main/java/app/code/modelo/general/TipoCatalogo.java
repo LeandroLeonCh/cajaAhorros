@@ -6,6 +6,7 @@
 package app.code.modelo.general;
 
 import app.code.modelo.Auditoria;
+import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,21 +18,35 @@ import javax.persistence.Table;
  * @author Carlos
  */
 @Entity
-@Table(name="gnr_tipos_catalogos")
-public class TipoCatalogo extends Auditoria {
-    
-    @Column(name="codigo", unique=true, nullable=false)
+@Table(name="ch_tipos_catalogos")
+public class TipoCatalogo extends Auditoria implements Serializable{
+
+    @Column(name="codigo", unique=true, nullable=false, length=20)
     private String codigo;
     
-    @Column(name="nombre", nullable=false)
+    @Column(name="nombre", nullable=false, length=100)
     private String nombre;
     
     @Column(name="descipcion", length=200)
     private String descripcion;
     
-    @OneToMany(mappedBy="Catalogo")
+    @OneToMany
     private Set<Catalogo> listaCatalogos;
 
+    public TipoCatalogo() {
+        super(null, false);
+    }
+    
+    public TipoCatalogo(Long id, boolean activo) {
+        super(id, activo);
+    }
+       
+    public TipoCatalogo(Long id, boolean activo, String codigo, String nombre) {
+        super(id, activo);
+        this.codigo = codigo;
+        this.nombre = nombre;
+    }
+        
     public String getCodigo() {
         return codigo;
     }
@@ -63,5 +78,11 @@ public class TipoCatalogo extends Auditoria {
     public void setListaCatalogos(Set<Catalogo> listaCatalogos) {
         this.listaCatalogos = listaCatalogos;
     }
+
+    @Override
+    public String toString() {
+        return "[ " + codigo + " ] - " + nombre;
+    }
    
+    
 }

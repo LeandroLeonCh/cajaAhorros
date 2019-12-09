@@ -6,6 +6,7 @@
 package app.code.modelo.general;
 
 import app.code.modelo.Auditoria;
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +20,9 @@ import javax.persistence.Table;
  * @author Carlos
  */
 @Entity
-@Table(name="gnr_catalogo")
-public class Catalogo extends Auditoria {
-    
+@Table(name="ch_catalogos")
+public class Catalogo extends Auditoria implements Serializable{
+
     @Column(name="codigo", unique=true, nullable=false)
     private String codigo;
     
@@ -31,11 +32,16 @@ public class Catalogo extends Auditoria {
     @Column(name="descipcion", length=200)
     private String descripcion;
     
-    private Long idTipoCatalogo;
+    //private Long idTipoCatalogo;
     
     @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @JoinColumn(name="tipo_catalogo_id", referencedColumnName="idTipoCatalogo")
+    @JoinColumn(name="tipo_catalogo_id", referencedColumnName="id")
     private TipoCatalogo tipoCatalogo;
+
+    public Catalogo(Long id, boolean activo) {
+        super(id, activo);
+    }
+   
             
     public String getCodigo() {
         return codigo;
@@ -67,6 +73,12 @@ public class Catalogo extends Auditoria {
 
     public void setTipoCatalogo(TipoCatalogo tipoCatalogo) {
         this.tipoCatalogo = tipoCatalogo;
+    }
+
+    public Catalogo(Long id, boolean activo, String codigo, String nombre) {
+        super(id, activo);
+        this.codigo = codigo;
+        this.nombre = nombre;
     }
     
     

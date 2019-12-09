@@ -5,34 +5,51 @@
  */
 package app.code.modelo;
 
-import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Carlos
  */
 @MappedSuperclass
-public abstract class Auditoria implements Serializable {
+public abstract class Auditoria {
 
     @Id 
     @GeneratedValue
-    @Column(name="id")
+    @Column(name="id", nullable=false)
     private Long id;
 
-    @Column(name="estado", nullable=false)
-    private boolean estado;
+    @Column(name="activo", nullable=false)
+    private boolean activo;
     
     @Column(name="usuario_registro", nullable=false, updatable=false)
     private Long usuarioRegistro;
         
     @Column(name="fecha_registro", nullable=false, updatable=false)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaRegistro;
-
+    
+    public Auditoria(Long id, boolean activo){
+        this.id = id;
+        this.activo = activo;
+    }
+    
+    public void guardar(EntityManager entityManager){
+        if(this.id == null){
+            this.setActivo(true);
+            this.setFechaRegistro(new Date());
+            this.setUsuarioRegistro(Long.valueOf(1));
+        }
+        entityManager.persist(this);
+    }
+    
+    
     public Long getId() {
         return id;
     }
@@ -41,12 +58,12 @@ public abstract class Auditoria implements Serializable {
         this.id = id;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public boolean isActivo() {
+        return activo;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     public Date getFechaRegistro() {
@@ -56,5 +73,21 @@ public abstract class Auditoria implements Serializable {
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+
+    public Long getUsuarioRegistro() {
+        return usuarioRegistro;
+    }
+
+    public void setUsuarioRegistro(Long usuarioRegistro) {
+        this.usuarioRegistro = usuarioRegistro;
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
+
 
 }

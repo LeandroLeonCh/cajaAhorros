@@ -13,4 +13,8 @@ import app.code.modelo.Auditoria;
  */
 public class Usuario extends Auditoria{
     
+    public Usuario(Long id, boolean activo) {
+        super(id, activo);
+    }
+    
 }
