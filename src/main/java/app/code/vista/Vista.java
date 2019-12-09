@@ -25,16 +25,10 @@ import javax.swing.JPanel;
  */
 public class Vista extends javax.swing.JFrame {
 
-    //Declara las variables de interfaz   
+    // Declara las variables de interfaz   
     private final Map<Integer, Integer> listaIndices;
-    private final Map<Integer, JPanel> listaVentanas;
 
-    //declarar variables de datos;
-    private final Calendar now;
-    private final LocalDate localDate;
-    private int mes;
-    private int anio;
-    
+    // Declarar variables de datos;
     private final ControladorFactory controladorFactory;
     /**
      * Creates new form Vista
@@ -42,50 +36,11 @@ public class Vista extends javax.swing.JFrame {
     public Vista() {
         Vista.this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
-        now = Calendar.getInstance();
-        localDate = LocalDate.of(now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH));
-        listaVentanas = new HashMap<>();
+        
         listaIndices = new HashMap<>();
         this.setLocationRelativeTo(null);
-        Paginador paginador = new Paginador(1, 4);
-        //paginador.setSize(400, 36);
-        PanelInicio.add(paginador);
-        TituloTab tab = new TituloTab("hola sfasfsdfsa sdf");
         this.controladorFactory = ControladorFactory.getInstancia();
     }
-
-    public String fecha() {
-        switch (mes) {
-            case 1:
-                return " ENERO del " + anio;
-            case 2:
-                return " FEBRERO del " + anio;
-            case 3:
-                return " MARZO del " + anio;
-            case 4:
-                return " ABRIL del " + anio;
-            case 5:
-                return " MAYO del " + anio;
-            case 6:
-                return " JUNIO del " + anio;
-            case 7:
-                return " JULIO del " + anio;
-            case 8:
-                return " AGOSTO del " + anio;
-            case 9:
-                return " SEPTIEMBRE del " + anio;
-            case 10:
-                return " OCTUBRE del " + anio;
-            case 11:
-                return " NOVIEMBRE del " + anio;
-            case 12:
-                return " DICIEMBRE del " + anio;
-            default:
-                return "";
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,7 +59,6 @@ public class Vista extends javax.swing.JFrame {
         btnCobrosFios = new javax.swing.JButton();
         PanelPestania = new javax.swing.JTabbedPane();
         PanelInicio = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
         menu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -176,7 +130,7 @@ public class Vista extends javax.swing.JFrame {
         btnCobrosFios.setBackground(new java.awt.Color(204, 204, 204));
         btnCobrosFios.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         btnCobrosFios.setForeground(new java.awt.Color(202, 202, 202));
-        btnCobrosFios.setText("  Transacciones");
+        btnCobrosFios.setText("CATALGOS");
         btnCobrosFios.setContentAreaFilled(false);
         btnCobrosFios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCobrosFios.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
@@ -201,13 +155,12 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(lblNavegador, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btnCobrosFios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblTM1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCobrosFios, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTM1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelOpcionesLayout.setVerticalGroup(
@@ -215,9 +168,9 @@ public class Vista extends javax.swing.JFrame {
             .addGroup(panelOpcionesLayout.createSequentialGroup()
                 .addComponent(lblNavegador, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
-                .addComponent(lblTM1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTM1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCobrosFios)
+                .addComponent(btnCobrosFios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -232,33 +185,15 @@ public class Vista extends javax.swing.JFrame {
         PanelInicio.setBackground(new java.awt.Color(255, 255, 255));
         PanelInicio.setEnabled(false);
 
-        jButton4.setBackground(new java.awt.Color(153, 153, 153));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(51, 51, 51));
-        jButton4.setText("1");
-        jButton4.setToolTipText("");
-        jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        jButton4.setContentAreaFilled(false);
-        jButton4.setEnabled(false);
-        jButton4.setFocusPainted(false);
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         javax.swing.GroupLayout PanelInicioLayout = new javax.swing.GroupLayout(PanelInicio);
         PanelInicio.setLayout(PanelInicioLayout);
         PanelInicioLayout.setHorizontalGroup(
             PanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelInicioLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(731, Short.MAX_VALUE))
+            .addGap(0, 810, Short.MAX_VALUE)
         );
         PanelInicioLayout.setVerticalGroup(
             PanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelInicioLayout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(482, Short.MAX_VALUE))
+            .addGap(0, 601, Short.MAX_VALUE)
         );
 
         PanelPestania.addTab("  INICIO  ", PanelInicio);
@@ -397,7 +332,6 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JPanel herramietas;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;

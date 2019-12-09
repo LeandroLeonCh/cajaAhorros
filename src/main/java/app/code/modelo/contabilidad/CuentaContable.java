@@ -15,6 +15,10 @@ public class CuentaContable extends Auditoria{
    
     @Id 
     private Long id;
+
+    public CuentaContable(Long id, boolean activo) {
+        super(id, activo);
+    }
     
     
 }

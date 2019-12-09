@@ -31,7 +31,7 @@ public class JTextFieldLimit extends PlainDocument {
             this.regex = "^\\d+$";
             break;
         case TEXTO:
-            this.regex = "^([A-Za-z]+\\s?)+$";
+            this.regex = "^([A-Za-z]+|\\s?)+$";
             break; 
         default:
             this.regex = "";

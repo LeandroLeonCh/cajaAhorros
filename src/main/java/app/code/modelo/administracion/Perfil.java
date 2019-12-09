@@ -22,5 +22,9 @@ public class Perfil extends Auditoria {
     
     @Column(name="codigo", unique = true)
     private String descripcion;
+
+    public Perfil(Long id, boolean activo) {
+        super(id, activo);
+    }
     
 }
