@@ -14,6 +14,8 @@ import javax.persistence.Query;
 import javax.persistence.Tuple;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 /**
@@ -53,11 +55,11 @@ public final class ControladorCatalogo {
     }
     
     public List<Tuple> obtenerCatalogos() {
-        return obtenerCatalogos(true, -1, -1);
+        return obtenerCatalogos("", -1, -1, true);
     }
 
     public List<Tuple> obtenerCatalogos(int maxResults, int firstResult) {
-        return obtenerCatalogos(false, maxResults, firstResult);
+        return obtenerCatalogos("", maxResults, firstResult, false);
     }
 
     private List<Catalogo> findCatalogoEntities(boolean all, int maxResults, int firstResult) {
@@ -74,25 +76,38 @@ public final class ControladorCatalogo {
         }
     }
     
-    private List<Tuple> obtenerCatalogos(boolean all, int maxResults, int firstResult) {
+    private List<Tuple> obtenerCatalogos(String criterio, int maxResults, int firstResult, boolean all) {
         EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
         try {
-            CriteriaBuilder criteria = em.getCriteriaBuilder();
-            CriteriaQuery<Tuple> criteriaQuery = em.getCriteriaBuilder()
-                    .createQuery(Tuple.class);
-            Root<Catalogo> catalogo = criteriaQuery.from(Catalogo.class);
-            criteriaQuery.select(criteria.tuple(
-                    catalogo.get("id"), 
-                    catalogo.get("activo"), 
-                    catalogo.get("codigo"),
-                    catalogo.get("nombre"),
-                    catalogo.get("descripcion"),
-                    catalogo.get("tipoCatalogo").get("codigo"),
-                    catalogo.get("tipoCatalogo").get("nombre")));
-            Query query = em.createQuery(criteriaQuery);
+            CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
+            Root<Catalogo> catalogo = cq.from(Catalogo.class);
+            Join<Catalogo, TipoCatalogo> tipoCatalogo = catalogo.join("tipoCatalogo", JoinType.INNER);
+            cq.multiselect(
+                catalogo.get("id"), 
+                catalogo.get("activo"), 
+                catalogo.get("codigo"),
+                catalogo.get("nombre"),
+                catalogo.get("descripcion"),
+                tipoCatalogo.get("codigo"),
+                tipoCatalogo.get("nombre"));
+            // Agrega el criterio
+            if (!(criterio == null || criterio.isEmpty())) {
+                criterio = criterio.toUpperCase();
+                cq.where(
+                    cb.or(
+                        cb.like(cb.upper(catalogo.get("codigo")),
+                                "%" + criterio + "%"),
+                        cb.like(cb.upper(catalogo.get("nombre")),
+                                "%" + criterio + "%")
+                    )
+                );
+            }
+            // Ejecuta el query
+            Query query = em.createQuery(cq);
             if (!all) {
-                query.setMaxResults(maxResults);
-                query.setFirstResult(firstResult);
+                query.setMaxResults(maxResults)
+                     .setFirstResult(firstResult);
             }
             return query.getResultList();
         } finally {
@@ -112,7 +127,7 @@ public final class ControladorCatalogo {
     public int getCatalogoCount() {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select count(o) from Catalogo as o");
+            Query q = em.createQuery("SELECT count(o) FROM Catalogo as o");
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();

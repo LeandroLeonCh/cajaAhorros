@@ -40,6 +40,7 @@ public class vistaCatalogos extends javax.swing.JPanel {
         modelTablaCatalgos = (DefaultTableModel) tblListaCatalogos.getModel();
         //tblListaCatalogos.getColumn("ACCION").setCellEditor(new DefaultCellEditor(new JButton()));
         listarCatalogos();
+        //registroGeneral.obtenerCatalogos(); 
     }
     
     private void listarCatalogos(){

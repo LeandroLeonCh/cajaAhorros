@@ -20,12 +20,13 @@ public class ControladorFactory {
     
     // Declaracion de todos los modulos
     public final RegistroGeneral GENERAL;
+    public RegistroGeneral CONTABILIDAD;
     
     private ControladorFactory(){
         // Crea el manager de persistencia
         EntityManagerFactory entityManagerFactory = Persistence
                 .createEntityManagerFactory("caja_ahorros");
-        
+
         // Instancia los registro de los modulos
         this.GENERAL = new RegistroGeneral(entityManagerFactory);
     }
