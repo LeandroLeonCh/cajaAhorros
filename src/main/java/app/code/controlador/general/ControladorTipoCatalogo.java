@@ -54,13 +54,13 @@ public final class ControladorTipoCatalogo {
     private List<TipoCatalogo> obtenerTiposCatalogos(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            String sql = "SELECT NEW TipoCatalogo(c.id, c.activo, c.codigo, c.descripcion) "
-                       + "FROM TipoCatalogo as c ";
             CriteriaBuilder criteria = em.getCriteriaBuilder();
             CriteriaQuery<TipoCatalogo> criteriaQuery = em.getCriteriaBuilder()
                     .createQuery(TipoCatalogo.class);
             Root<TipoCatalogo> tipoCatalogo = criteriaQuery.from(TipoCatalogo.class);
-            criteriaQuery.multiselect(tipoCatalogo.get("id"), tipoCatalogo.get("activo"), tipoCatalogo.get("codigo"),
+            criteriaQuery.multiselect(
+                    tipoCatalogo.get("id"),
+                    tipoCatalogo.get("codigo"),
                     tipoCatalogo.get("nombre"));
             Query query = em.createQuery(criteriaQuery);
             if (!all) {
@@ -68,6 +68,29 @@ public final class ControladorTipoCatalogo {
                 query.setFirstResult(firstResult);
             }
             return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    private List<TipoCatalogo> obtenerTiposCatalogos(boolean activos) {
+        EntityManager em = getEntityManager();
+        try {
+            // Arma el tipo resultado del query
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<TipoCatalogo> cq = cb.createQuery(TipoCatalogo.class);
+            // Arma el query
+            Root<TipoCatalogo> tipoCatalogo = cq.from(TipoCatalogo.class);
+            cq.multiselect(
+                tipoCatalogo.get("id"),
+                tipoCatalogo.get("codigo"),
+                tipoCatalogo.get("nombre"));
+            
+            if(activos){
+               cq.where(cb.isTrue(tipoCatalogo.get("activo")));
+            }
+            // Retorna el resultado del query
+            return em.createQuery(cq).getResultList();
         } finally {
             em.close();
         }

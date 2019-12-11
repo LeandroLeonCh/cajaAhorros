@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package app.code.vista.general;
-import app.code.common.Paginador;
 import app.code.controlador.general.RegistroGeneral;
 import java.util.concurrent.CompletableFuture;
 import javax.persistence.Tuple;
@@ -47,7 +46,7 @@ public class vistaCatalogos extends javax.swing.JPanel {
         // Obtiene la lista de catalgos
         this.cargarLista = true;
         CompletableFuture.supplyAsync(()-> { 
-            return registroGeneral.obtenerCatalogos(); 
+            return registroGeneral.obtenerCatalogosPorRango("", 1); 
         }).thenAccept(listaCatalogos -> {
             int index = 0;
             modelTablaCatalgos.setNumRows(0);

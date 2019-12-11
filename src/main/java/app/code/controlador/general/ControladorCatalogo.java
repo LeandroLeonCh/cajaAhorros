@@ -54,33 +54,44 @@ public final class ControladorCatalogo {
         }
     }
     
-    public List<Tuple> obtenerCatalogos() {
-        return obtenerCatalogos("", -1, -1, true);
-    }
-
-    public List<Tuple> obtenerCatalogos(int maxResults, int firstResult) {
-        return obtenerCatalogos("", maxResults, firstResult, false);
-    }
-
-    private List<Catalogo> findCatalogoEntities(boolean all, int maxResults, int firstResult) {
+    public List<Catalogo> obtenerCatalogosPorTipo(Long tipoId) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createQuery("select object(o) from Catalogo as o");
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
-            }
-            return q.getResultList();
+            // Arma el tipo resultado del query
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Catalogo> cq = cb.createQuery(Catalogo.class);
+            // Arma el query
+            Root<Catalogo> catalogo = cq.from(Catalogo.class);
+            cq.multiselect(
+                catalogo.get("id"), 
+                catalogo.get("codigo"),
+                catalogo.get("nombre"));
+            // Agrega el filtro
+            cq.where(
+                cb.and(
+                    cb.isTrue(catalogo.get("activo")), 
+                    cb.equal(catalogo.get("tipoCatalogo").get("id"), tipoId)
+                )
+            );
+            // Retorna el resultado del query
+            return em.createQuery(cq).getResultList();
         } finally {
             em.close();
         }
     }
+
+    public List<Tuple> obtenerCatalogosPorRango(int maxResults, int firstResult) {
+        return obtenerCatalogosPorRango("", maxResults, firstResult);
+    }
     
-    private List<Tuple> obtenerCatalogos(String criterio, int maxResults, int firstResult, boolean all) {
+    public List<Tuple> obtenerCatalogosPorRango(String criterio, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
-        CriteriaBuilder cb = em.getCriteriaBuilder();
         try {
+            // Arma el tipo resultado del query
+            CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
+            
+            // Arma el query
             Root<Catalogo> catalogo = cq.from(Catalogo.class);
             Join<Catalogo, TipoCatalogo> tipoCatalogo = catalogo.join("tipoCatalogo", JoinType.INNER);
             cq.multiselect(
@@ -103,13 +114,11 @@ public final class ControladorCatalogo {
                     )
                 );
             }
-            // Ejecuta el query
-            Query query = em.createQuery(cq);
-            if (!all) {
-                query.setMaxResults(maxResults)
-                     .setFirstResult(firstResult);
-            }
-            return query.getResultList();
+            // Retorna el resultado del query
+            return em.createQuery(cq)
+                    .setMaxResults(maxResults)
+                    .setFirstResult(firstResult)
+                    .getResultList();
         } finally {
             em.close();
         }

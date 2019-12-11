@@ -36,15 +36,14 @@ public class RegistroGeneral {
         }
     }
     
-    public List<Tuple> obtenerCatalogos(){
-        return controladorCatalogo.obtenerCatalogos();
+    public List<Tuple> obtenerCatalogosPorRango(String criterio, int pagina){
+        return controladorCatalogo.obtenerCatalogosPorRango(criterio, 5, pagina);
     }
     
-    public void guardarTipoCatalogo(TipoCatalogo tipoCatalogo) throws GeneralExeption{
+    public void guardarTipoCatalogo(TipoCatalogo tipoCatalogo) throws GeneralExeption {
         controladorTipoCatalogo.guardar(tipoCatalogo);
     }
     
-    // Registro de todos los metodos CONTROLADOR TIPO CATALGO
     public List<TipoCatalogo> obtenerListaTiposCatalogos() {
         return controladorTipoCatalogo.obtenerTiposCatalogos();
     }
