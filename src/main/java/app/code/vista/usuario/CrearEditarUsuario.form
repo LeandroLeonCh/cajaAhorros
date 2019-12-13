@@ -42,7 +42,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="214" max="-2" attributes="0"/>
-                              <Component id="btnSaveC" min="-2" pref="140" max="-2" attributes="0"/>
+                              <Component id="btnSaveU" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -55,19 +55,19 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtNombreCat" max="32767" attributes="0"/>
+                                          <Component id="txtPassword" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
-                                              <Component id="txtCodigoCat" min="-2" pref="140" max="-2" attributes="0"/>
+                                              <Component id="txtUsuario" min="-2" pref="140" max="-2" attributes="0"/>
                                               <EmptySpace pref="72" max="32767" attributes="0"/>
                                               <Component id="chxC1" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="txtDescripcionCat" alignment="0" min="-2" pref="275" max="-2" attributes="0"/>
-                                          <Component id="txtDescripcionCat1" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtNombreUsuario" alignment="0" min="-2" pref="275" max="-2" attributes="0"/>
+                                          <Component id="txtApellidoUsuario" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                      <Component id="chxC3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="chxAdministrador" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -94,7 +94,7 @@
                   <Component id="chxC1" min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblT1" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
-                      <Component id="txtCodigoCat" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -105,24 +105,24 @@
                       <Component id="lblT3" min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="txtNombreCat" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="txtDescripcionCat" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNombreUsuario" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="txtDescripcionCat1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtApellidoUsuario" alignment="0" max="32767" attributes="0"/>
                   <Component id="lblT4" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="chxC3" min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="chxAdministrador" min="-2" pref="20" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="sep3" min="-2" pref="2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="chxC2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-              <Component id="btnSaveC" min="-2" pref="26" max="-2" attributes="0"/>
+              <Component id="btnSaveU" min="-2" pref="26" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -174,14 +174,14 @@
         <Property name="text" type="java.lang.String" value="Nombre:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDescripcionCat">
+    <Component class="javax.swing.JTextField" name="txtNombreUsuario">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Trebuchet MS" size="11" style="1"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNombreCat">
+    <Component class="javax.swing.JTextField" name="txtPassword">
       <Properties>
         <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="new JTextFieldLimit(100, 2)" type="code"/>
@@ -191,14 +191,14 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCodigoCat">
+    <Component class="javax.swing.JTextField" name="txtUsuario">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Trebuchet MS" size="11" style="1"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnSaveC">
+    <Component class="javax.swing.JButton" name="btnSaveU">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="66" red="0" type="rgb"/>
@@ -222,9 +222,9 @@
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSaveCMouseEntered"/>
-        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSaveCMouseExited"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveCActionPerformed"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSaveUMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSaveUMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveUActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCleanC">
@@ -284,7 +284,7 @@
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDescripcionCat1">
+    <Component class="javax.swing.JTextField" name="txtApellidoUsuario">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Trebuchet MS" size="11" style="1"/>
@@ -300,7 +300,7 @@
         <Property name="text" type="java.lang.String" value="Apellido:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="chxC3">
+    <Component class="javax.swing.JCheckBox" name="chxAdministrador">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Trebuchet MS" size="12" style="0"/>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.code.modelo.usuarios;
+package app.code.modelo.usuario;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

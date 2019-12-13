@@ -12,6 +12,7 @@ import app.code.common.JTextFieldLimit;
 import app.code.controlador.general.RegistroGeneral;
 import app.code.modelo.general.Catalogo;
 import app.code.modelo.general.TipoCatalogo;
+import app.code.modelo.usuario.Usuario;
 import java.awt.Color;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -27,32 +28,35 @@ import javax.swing.JOptionPane;
 public class CrearEditarUsuario extends JFrame {
 
     private final RegistroGeneral registroGeneral;
-    
+
     private int op;
     private boolean cargarLista;
-    
+
     /**
      * Consructor de formulario crear/editar Catlogo
+     *
      * @param esEditar
-     * @param registroGeneral 
+     * @param registroGeneral
      */
     public CrearEditarUsuario(boolean esEditar, RegistroGeneral registroGeneral) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.registroGeneral = registroGeneral;
     }
-    
-    
-    private void cargargDataInicial(){
+
+    private void cargargDataInicial() {
         this.cargarLista = true;
-        CompletableFuture.supplyAsync(()->{ 
-            return registroGeneral.obtenerListaTiposCatalogos(); 
+        CompletableFuture.supplyAsync(() -> {
+            return registroGeneral.obtenerListaTiposCatalogos();
         }).thenAccept(res -> {
             res.forEach((tipo) -> {
-                
+
             });
-        }).thenRun(() -> {this.cargarLista = false;});
+        }).thenRun(() -> {
+            this.cargarLista = false;
+        });
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,17 +71,17 @@ public class CrearEditarUsuario extends JFrame {
         lblT1 = new javax.swing.JLabel();
         lblT2 = new javax.swing.JLabel();
         lblT3 = new javax.swing.JLabel();
-        txtDescripcionCat = new javax.swing.JTextField();
-        txtNombreCat = new javax.swing.JTextField();
-        txtCodigoCat = new javax.swing.JTextField();
-        btnSaveC = new javax.swing.JButton();
+        txtNombreUsuario = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
+        btnSaveU = new javax.swing.JButton();
         btnCleanC = new javax.swing.JButton();
         chxC2 = new javax.swing.JCheckBox();
         sep3 = new javax.swing.JSeparator();
         chxC1 = new javax.swing.JCheckBox();
-        txtDescripcionCat1 = new javax.swing.JTextField();
+        txtApellidoUsuario = new javax.swing.JTextField();
         lblT4 = new javax.swing.JLabel();
-        chxC3 = new javax.swing.JCheckBox();
+        chxAdministrador = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -106,32 +110,32 @@ public class CrearEditarUsuario extends JFrame {
         lblT3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblT3.setText("Nombre:");
 
-        txtDescripcionCat.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        txtNombreUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
 
-        txtNombreCat.setDocument(new JTextFieldLimit(100, 2));
-        txtNombreCat.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        txtPassword.setDocument(new JTextFieldLimit(100, 2));
+        txtPassword.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
 
-        txtCodigoCat.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        txtUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
 
-        btnSaveC.setBackground(new java.awt.Color(0, 102, 153));
-        btnSaveC.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
-        btnSaveC.setText("GUARDAR");
-        btnSaveC.setToolTipText("Realizar Nueva Transaccion para\\n\nel CLiente");
-        btnSaveC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        btnSaveC.setContentAreaFilled(false);
-        btnSaveC.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnSaveC.setRequestFocusEnabled(false);
-        btnSaveC.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSaveU.setBackground(new java.awt.Color(0, 102, 153));
+        btnSaveU.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
+        btnSaveU.setText("GUARDAR");
+        btnSaveU.setToolTipText("Realizar Nueva Transaccion para\\n\nel CLiente");
+        btnSaveU.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnSaveU.setContentAreaFilled(false);
+        btnSaveU.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSaveU.setRequestFocusEnabled(false);
+        btnSaveU.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSaveCMouseEntered(evt);
+                btnSaveUMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSaveCMouseExited(evt);
+                btnSaveUMouseExited(evt);
             }
         });
-        btnSaveC.addActionListener(new java.awt.event.ActionListener() {
+        btnSaveU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveCActionPerformed(evt);
+                btnSaveUActionPerformed(evt);
             }
         });
 
@@ -169,18 +173,18 @@ public class CrearEditarUsuario extends JFrame {
         chxC1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         chxC1.setRequestFocusEnabled(false);
 
-        txtDescripcionCat1.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
+        txtApellidoUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
 
         lblT4.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         lblT4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblT4.setText("Apellido:");
 
-        chxC3.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        chxC3.setForeground(new java.awt.Color(6, 52, 74));
-        chxC3.setSelected(true);
-        chxC3.setText("Administrador");
-        chxC3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        chxC3.setRequestFocusEnabled(false);
+        chxAdministrador.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        chxAdministrador.setForeground(new java.awt.Color(6, 52, 74));
+        chxAdministrador.setSelected(true);
+        chxAdministrador.setText("Administrador");
+        chxAdministrador.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        chxAdministrador.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,7 +204,7 @@ public class CrearEditarUsuario extends JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(214, 214, 214)
-                                .addComponent(btnSaveC, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnSaveU, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(lblT4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -211,16 +215,16 @@ public class CrearEditarUsuario extends JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtNombreCat)
+                                            .addComponent(txtPassword)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txtCodigoCat, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                                                 .addComponent(chxC1))
-                                            .addComponent(txtDescripcionCat, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtDescripcionCat1)))
+                                            .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtApellidoUsuario)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(8, 8, 8)
-                                        .addComponent(chxC3)))))
+                                        .addComponent(chxAdministrador)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -238,7 +242,7 @@ public class CrearEditarUsuario extends JFrame {
                     .addComponent(chxC1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblT1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCodigoCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -246,70 +250,88 @@ public class CrearEditarUsuario extends JFrame {
                         .addGap(7, 7, 7)
                         .addComponent(lblT3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNombreCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtDescripcionCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDescripcionCat1)
+                    .addComponent(txtApellidoUsuario)
                     .addComponent(lblT4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chxC3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(chxAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(sep3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(chxC2)
                 .addGap(9, 9, 9)
-                .addComponent(btnSaveC, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSaveU, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSaveCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveCMouseEntered
-        if (btnSaveC.isEnabled()) {
-            btnSaveC.setForeground(Color.white);
-            btnSaveC.setOpaque(true);
+    private void btnSaveUMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveUMouseEntered
+        if (btnSaveU.isEnabled()) {
+            btnSaveU.setForeground(Color.white);
+            btnSaveU.setOpaque(true);
         }
-    }//GEN-LAST:event_btnSaveCMouseEntered
+    }//GEN-LAST:event_btnSaveUMouseEntered
 
-    private void btnSaveCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveCMouseExited
-        if (btnSaveC.isEnabled()) {
-            btnSaveC.setForeground(Color.black);
-            btnSaveC.setOpaque(false);
+    private void btnSaveUMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveUMouseExited
+        if (btnSaveU.isEnabled()) {
+            btnSaveU.setForeground(Color.black);
+            btnSaveU.setOpaque(false);
         }
-    }//GEN-LAST:event_btnSaveCMouseExited
+    }//GEN-LAST:event_btnSaveUMouseExited
 
-    private void btnSaveCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveCActionPerformed
-        if (txtNombreCat.getText().trim().isEmpty() || 
-            txtDescripcionCat.getText().trim().isEmpty() || 
-            txtCodigoCat.getText().trim().isEmpty()) {
+    private void btnSaveUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveUActionPerformed
+        if (txtUsuario.getText().trim().isEmpty()||
+                txtPassword.getText().trim().isEmpty()||
+                txtNombreUsuario.getText().trim().isEmpty()||
+                txtApellidoUsuario.getText().trim().isEmpty()
+                ) {
             JOptionPane.showMessageDialog(null, "Asegurese de llenar todos los datos antes de guardar.", " AVISO", JOptionPane.HEIGHT);
         } else {
             crearCliente();
         }
 
-    }//GEN-LAST:event_btnSaveCActionPerformed
+    }//GEN-LAST:event_btnSaveUActionPerformed
 
     private void crearCliente() {
+
+        Usuario user = new Usuario(null, true);
+        
+        String usuario=txtUsuario.getText();
+        String password=txtPassword.getText();
+        String nombre=txtNombreUsuario.getText();
+        String apellido=txtApellidoUsuario.getText();
+        boolean administrador=chxAdministrador.isSelected();
+        
+        user.setUsuario(usuario);
+        user.setContrasenia(password);
+        user.setNombre(nombre);
+        user.setApellido(apellido);
+        user.setEsAdmin(administrador);
         
         
-            JOptionPane.showMessageDialog(null, "Catalgo agreagdo satisfactoriamente!", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            limpiar();
-            if (!chxC2.isSelected()){
-                dispose();
-            }
-        
- 
+        JOptionPane.showMessageDialog(null, "Catalgo agreagdo satisfactoriamente!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+        limpiar();
+        if (!chxC2.isSelected()) {
+            dispose();
+        }
+
     }
 
     public void limpiar() {
-        txtDescripcionCat.setText("");
-        txtCodigoCat.setText("");
-        txtNombreCat.setText("");
+        txtNombreUsuario.setText("");
+        txtPassword.setText("");
+        txtUsuario.setText("");
+        txtApellidoUsuario.setText("");
+        chxC1.setSelected(false);
+        chxAdministrador.setSelected(false);
     }
-    
+
     private void btnCleanCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCleanCMouseEntered
         btnCleanC.setOpaque(true);
     }//GEN-LAST:event_btnCleanCMouseEntered
@@ -323,7 +345,7 @@ public class CrearEditarUsuario extends JFrame {
     }//GEN-LAST:event_btnCleanCActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if (!txtNombreCat.getText().trim().isEmpty() || !txtDescripcionCat.getText().trim().isEmpty() || !txtCodigoCat.getText().trim().isEmpty()) {
+        if (!txtPassword.getText().trim().isEmpty() || !txtNombreUsuario.getText().trim().isEmpty() || !txtUsuario.getText().trim().isEmpty()) {
             op = JOptionPane.showConfirmDialog(null, "No ha guardado los datos Ingresados\n"
                     + "Desea cerrar la ventana de todos modos?",
                     " AVISO", JOptionPane.HEIGHT);
@@ -335,17 +357,16 @@ public class CrearEditarUsuario extends JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCleanC;
-    private javax.swing.JButton btnSaveC;
+    private javax.swing.JButton btnSaveU;
+    private javax.swing.JCheckBox chxAdministrador;
     private javax.swing.JCheckBox chxC1;
     private javax.swing.JCheckBox chxC2;
-    private javax.swing.JCheckBox chxC3;
     private javax.swing.JLabel lblT1;
     private javax.swing.JLabel lblT2;
     private javax.swing.JLabel lblT3;
@@ -353,9 +374,9 @@ public class CrearEditarUsuario extends JFrame {
     private javax.swing.JLabel lblTituloC;
     private javax.swing.JSeparator sep1;
     private javax.swing.JSeparator sep3;
-    private javax.swing.JTextField txtCodigoCat;
-    private javax.swing.JTextField txtDescripcionCat;
-    private javax.swing.JTextField txtDescripcionCat1;
-    private javax.swing.JTextField txtNombreCat;
+    private javax.swing.JTextField txtApellidoUsuario;
+    private javax.swing.JTextField txtNombreUsuario;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

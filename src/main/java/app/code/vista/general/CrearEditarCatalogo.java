@@ -292,7 +292,7 @@ public class CrearEditarCatalogo extends JFrame {
                 getElementAt(cbxTipoCat.getSelectedIndex()));
         try{
             registroGeneral.guardarCatalogo(catalogo);
-            JOptionPane.showMessageDialog(null, "Catalgo agreagdo satisfactoriamente!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Usuario agreagdo satisfactoriamente!", "INFO", JOptionPane.INFORMATION_MESSAGE);
             limpiar();
             if (!chxC2.isSelected()){
                 dispose();
