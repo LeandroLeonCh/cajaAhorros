@@ -10,6 +10,7 @@ import app.code.common.GeneralExeption;
 import app.code.common.JTextFieldLimit;
 
 import app.code.controlador.general.RegistroGeneral;
+import app.code.controlador.usuario.ControladorUsuario;
 import app.code.modelo.general.Catalogo;
 import app.code.modelo.general.TipoCatalogo;
 import app.code.modelo.usuario.Usuario;
@@ -27,8 +28,6 @@ import javax.swing.JOptionPane;
  */
 public class CrearEditarUsuario extends JFrame {
 
-    private final RegistroGeneral registroGeneral;
-
     private int op;
     private boolean cargarLista;
 
@@ -38,25 +37,13 @@ public class CrearEditarUsuario extends JFrame {
      * @param esEditar
      * @param registroGeneral
      */
-    public CrearEditarUsuario(boolean esEditar, RegistroGeneral registroGeneral) {
+
+    private final ControladorUsuario USUARIO;
+    
+    public CrearEditarUsuario(ControladorUsuario USUARIO) {
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.registroGeneral = registroGeneral;
+        this.USUARIO=USUARIO;
     }
-
-    private void cargargDataInicial() {
-        this.cargarLista = true;
-        CompletableFuture.supplyAsync(() -> {
-            return registroGeneral.obtenerListaTiposCatalogos();
-        }).thenAccept(res -> {
-            res.forEach((tipo) -> {
-
-            });
-        }).thenRun(() -> {
-            this.cargarLista = false;
-        });
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -286,11 +273,10 @@ public class CrearEditarUsuario extends JFrame {
     }//GEN-LAST:event_btnSaveUMouseExited
 
     private void btnSaveUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveUActionPerformed
-        if (txtUsuario.getText().trim().isEmpty()||
-                txtPassword.getText().trim().isEmpty()||
-                txtNombreUsuario.getText().trim().isEmpty()||
-                txtApellidoUsuario.getText().trim().isEmpty()
-                ) {
+        if (txtUsuario.getText().trim().isEmpty()
+                || txtPassword.getText().trim().isEmpty()
+                || txtNombreUsuario.getText().trim().isEmpty()
+                || txtApellidoUsuario.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Asegurese de llenar todos los datos antes de guardar.", " AVISO", JOptionPane.HEIGHT);
         } else {
             crearCliente();
@@ -301,20 +287,19 @@ public class CrearEditarUsuario extends JFrame {
     private void crearCliente() {
 
         Usuario user = new Usuario(null, true);
-        
-        String usuario=txtUsuario.getText();
-        String password=txtPassword.getText();
-        String nombre=txtNombreUsuario.getText();
-        String apellido=txtApellidoUsuario.getText();
-        boolean administrador=chxAdministrador.isSelected();
-        
+
+        String usuario = txtUsuario.getText();
+        String password = txtPassword.getText();
+        String nombre = txtNombreUsuario.getText();
+        String apellido = txtApellidoUsuario.getText();
+        boolean administrador = chxAdministrador.isSelected();
+
         user.setUsuario(usuario);
         user.setContrasenia(password);
         user.setNombre(nombre);
         user.setApellido(apellido);
         user.setEsAdmin(administrador);
-        
-        
+
         JOptionPane.showMessageDialog(null, "Catalgo agreagdo satisfactoriamente!", "INFO", JOptionPane.INFORMATION_MESSAGE);
         limpiar();
         if (!chxC2.isSelected()) {

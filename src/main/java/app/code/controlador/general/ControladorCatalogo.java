@@ -94,6 +94,7 @@ public final class ControladorCatalogo {
             // Arma el query
             Root<Catalogo> catalogo = cq.from(Catalogo.class);
             Join<Catalogo, TipoCatalogo> tipoCatalogo = catalogo.join("tipoCatalogo", JoinType.INNER);
+            
             cq.multiselect(
                 catalogo.get("id"), 
                 catalogo.get("activo"), 

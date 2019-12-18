@@ -6,6 +6,7 @@
 package app.code.controlador;
 
 import app.code.controlador.general.RegistroGeneral;
+import app.code.controlador.usuario.ControladorUsuario;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -21,6 +22,7 @@ public class ControladorFactory {
     // Declaracion de todos los modulos
     public final RegistroGeneral GENERAL;
     public RegistroGeneral CONTABILIDAD;
+    public final ControladorUsuario USUARIO;
     
     private ControladorFactory(){
         // Crea el manager de persistencia
@@ -29,6 +31,7 @@ public class ControladorFactory {
 
         // Instancia los registro de los modulos
         this.GENERAL = new RegistroGeneral(entityManagerFactory);
+        this.USUARIO = new ControladorUsuario(entityManagerFactory);
     }
     
     public static ControladorFactory getInstancia(){

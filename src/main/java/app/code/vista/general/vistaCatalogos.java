@@ -5,6 +5,7 @@
  */
 package app.code.vista.general;
 import app.code.controlador.general.RegistroGeneral;
+import app.code.controlador.usuario.ControladorUsuario;
 import java.util.concurrent.CompletableFuture;
 import javax.persistence.Tuple;
 import javax.swing.table.DefaultTableModel;
@@ -123,7 +124,7 @@ public class vistaCatalogos extends javax.swing.JPanel {
             }
         });
         tblListaCatalogos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tblListaCatalogos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblListaCatalogos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tblListaCatalogos.setGridColor(new java.awt.Color(210, 228, 238));
         tblListaCatalogos.setRowHeight(20);
         tblListaCatalogos.setSelectionBackground(new java.awt.Color(201, 201, 201));
@@ -169,7 +170,7 @@ public class vistaCatalogos extends javax.swing.JPanel {
         btnBuscarC.setToolTipText("");
         btnBuscarC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnBuscarC.setContentAreaFilled(false);
-        btnBuscarC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarC.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscarC.setFocusPainted(false);
         btnBuscarC.setRequestFocusEnabled(false);
         btnBuscarC.addActionListener(new java.awt.event.ActionListener() {

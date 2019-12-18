@@ -9,6 +9,7 @@ import app.code.common.Paginador;
 import app.code.common.TituloTab;
 import app.code.controlador.ControladorFactory;
 import app.code.vista.general.vistaCatalogos;
+import app.code.vista.usuario.CrearEditarUsuario;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,6 +58,7 @@ public class Vista extends javax.swing.JFrame {
         lblNavegador = new javax.swing.JLabel();
         lblTM1 = new javax.swing.JLabel();
         btnCobrosFios = new javax.swing.JButton();
+        btnEditarUsuario = new javax.swing.JButton();
         PanelPestania = new javax.swing.JTabbedPane();
         PanelInicio = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
@@ -132,7 +134,7 @@ public class Vista extends javax.swing.JFrame {
         btnCobrosFios.setForeground(new java.awt.Color(202, 202, 202));
         btnCobrosFios.setText("CATALGOS");
         btnCobrosFios.setContentAreaFilled(false);
-        btnCobrosFios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCobrosFios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCobrosFios.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnCobrosFios.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnCobrosFios.setRequestFocusEnabled(false);
@@ -147,6 +149,26 @@ public class Vista extends javax.swing.JFrame {
             }
         });
 
+        btnEditarUsuario.setBackground(new java.awt.Color(204, 204, 204));
+        btnEditarUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnEditarUsuario.setForeground(new java.awt.Color(202, 202, 202));
+        btnEditarUsuario.setText("EDITAR CREAR USUARIOS");
+        btnEditarUsuario.setContentAreaFilled(false);
+        btnEditarUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEditarUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnEditarUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnEditarUsuario.setRequestFocusEnabled(false);
+        btnEditarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEditarUsuarioMouseEntered(evt);
+            }
+        });
+        btnEditarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
@@ -157,10 +179,13 @@ public class Vista extends javax.swing.JFrame {
             .addGroup(panelOpcionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                    .addComponent(lblTM1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCobrosFios, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblTM1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addComponent(btnEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelOpcionesLayout.setVerticalGroup(
@@ -171,6 +196,8 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(lblTM1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCobrosFios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -282,6 +309,23 @@ public class Vista extends javax.swing.JFrame {
         PanelPestania.setTabComponentAt(PanelPestania.getTabCount() - 1, titulo);
     }//GEN-LAST:event_btnCobrosFiosActionPerformed
 
+    private void btnEditarUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarUsuarioMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarUsuarioMouseEntered
+
+    private void btnEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarUsuarioActionPerformed
+        // TODO add your handling code here:
+        PanelPestania.addTab("", new CrearEditarUsuario(this.controladorFactory.USUARIO));
+        TituloTab titulo = new TituloTab("  USUARIOS  ");
+        titulo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                PanelPestania.remove(PanelPestania.indexOfTabComponent(titulo));
+            }
+        });
+        PanelPestania.setTabComponentAt(PanelPestania.getTabCount() - 1, titulo);        
+    }//GEN-LAST:event_btnEditarUsuarioActionPerformed
+
     public void cerrarVentana(int v) {
         if(listaIndices.get(v) != null){
         PanelPestania.remove(listaIndices.get(v));
@@ -329,6 +373,7 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JPanel PanelInicio;
     private javax.swing.JTabbedPane PanelPestania;
     private javax.swing.JButton btnCobrosFios;
+    private javax.swing.JButton btnEditarUsuario;
     private javax.swing.JPanel herramietas;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
