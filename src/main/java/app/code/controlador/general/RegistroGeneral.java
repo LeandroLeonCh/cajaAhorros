@@ -6,7 +6,9 @@
 package app.code.controlador.general;
 
 import app.code.common.GeneralExeption;
+import app.code.controlador.administracion.ControladorPantalla;
 import app.code.controlador.usuario.ControladorUsuario;
+import app.code.modelo.administracion.Pantalla;
 import app.code.modelo.general.Catalogo;
 import app.code.modelo.general.TipoCatalogo;
 import app.code.modelo.usuario.Usuario;
@@ -25,11 +27,13 @@ public class RegistroGeneral {
     private final ControladorTipoCatalogo controladorTipoCatalogo;
     private final ControladorCatalogo controladorCatalogo;
     private final ControladorUsuario controladorUsuario;
+    private final ControladorPantalla controladorPantalla;
 
     public RegistroGeneral(EntityManagerFactory entityManager) {
         this.controladorTipoCatalogo = new ControladorTipoCatalogo(entityManager);
         this.controladorCatalogo = new ControladorCatalogo(entityManager);
         this.controladorUsuario = new ControladorUsuario(entityManager);
+        this.controladorPantalla = new ControladorPantalla(entityManager);
     }
 
     public void guardarCatalogo(Catalogo catalogo) throws GeneralExeption {
@@ -63,5 +67,12 @@ public class RegistroGeneral {
     public List<Tuple> obtenerUsuariosPorRango(String criterio, int pagina) {
         return controladorUsuario.obtenerUsuarioPorRango(criterio, 5, pagina);
     }
-
+    
+    
+    public void guardarPantalla(Pantalla pantalla){
+        try {
+            controladorPantalla.guardar(pantalla);
+        } catch (PersistenceException e) {
+        }
+    }
 }
