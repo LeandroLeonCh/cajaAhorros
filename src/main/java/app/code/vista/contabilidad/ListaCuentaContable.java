@@ -5,7 +5,6 @@
  */
 package app.code.vista.contabilidad;
 
-import app.code.controlador.contabilidad.RegistroContable;
 import app.code.controlador.general.RegistroGeneral;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,17 +14,17 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListaCuentaContable extends javax.swing.JPanel {
 
-     private final RegistroContable registroContable;
+     private final RegistroGeneral registroGeneral;
     private final DefaultTableModel modelTablaCatalgos;
     private boolean cargarLista;
     /**
      * Creates new form vistaCatalogos
      * @param registroGeneral
      */
-    public ListaCuentaContable(RegistroContable registroContable) {
+    public ListaCuentaContable(RegistroGeneral registroContable) {
         initComponents();
          // Inicializa el controlador
-        this.registroContable = registroContable;
+        this.registroGeneral = registroContable;
        
         // Inicializa el progres bar
         this.cargarLista = false;
@@ -41,9 +40,9 @@ public class ListaCuentaContable extends javax.swing.JPanel {
         //registroGeneral.obtenerCatalogos(); 
     }
 
-    public ListaCuentaContable(RegistroGeneral GENERAL) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    public ListaCuentaContable(RegistroGeneral regitroGeneral) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
     
     private void listarCatalogos(){
 //        // Obtiene la lista de catalgos
@@ -266,7 +265,8 @@ public class ListaCuentaContable extends javax.swing.JPanel {
     }//GEN-LAST:event_btnActualizarTablActionPerformed
 
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
-
+//          CrearEditarCuentaContable crearEditarCuentaContable, = new CrearEditarCuentaContable(true, registroGeneral);
+//        crearEditarCatalogo.setVisible(true);
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

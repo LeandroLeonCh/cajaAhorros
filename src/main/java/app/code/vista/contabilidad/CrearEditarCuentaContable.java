@@ -6,7 +6,6 @@
 package app.code.vista.contabilidad;
 
 import app.code.common.GeneralExeption;
-import app.code.controlador.contabilidad.RegistroContable;
 import app.code.controlador.general.RegistroGeneral;
 import app.code.modelo.contabilidad.CuentaContable;
 import app.code.modelo.general.Catalogo;
@@ -20,10 +19,10 @@ import javax.swing.JOptionPane;
  */
 public class CrearEditarCuentaContable extends javax.swing.JFrame {
 
-//    private final RegistroGeneral registroGeneral;
-//    private final DefaultComboBoxModel<CuentaContable> modelComboTipo;
-//    private int op;
-//    private boolean cargarLista;
+    private final RegistroGeneral registroGeneral;
+    private final DefaultComboBoxModel<CuentaContable> modelComboTipo;
+    private int op;
+    private boolean cargarLista;
     
     
      /**
@@ -32,12 +31,12 @@ public class CrearEditarCuentaContable extends javax.swing.JFrame {
      * @param registroGeneral 
      */
     
-    public CrearEditarCuentaContable(boolean esEditar, RegistroContable registroGeneral) {
+    public CrearEditarCuentaContable(boolean esEditar, RegistroGeneral registroGeneral) {
         initComponents();
-//        this.setLocationRelativeTo(null);
-//        this.registroGeneral = registroGeneral;
-//        //this.registroGeneral = this.registroGeneral;
-//        modelComboTipo = (DefaultComboBoxModel) cbxTipoCuenta.getModel();
+        this.setLocationRelativeTo(null);
+        this.registroGeneral = registroGeneral;
+        //this.registroGeneral = this.registroGeneral;
+        modelComboTipo = (DefaultComboBoxModel) cbxTipoCuenta.getModel();
         /*
           this.setLocationRelativeTo(null);
         this.registroGeneral = registroGeneral;
