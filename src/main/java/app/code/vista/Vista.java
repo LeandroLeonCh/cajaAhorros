@@ -8,6 +8,8 @@ package app.code.vista;
 import app.code.common.Paginador;
 import app.code.common.TituloTab;
 import app.code.controlador.ControladorFactory;
+import app.code.controlador.contabilidad.ControladorCuentaContable;
+import app.code.vista.contabilidad.ListaCuentaContable;
 import app.code.vista.general.vistaCatalogos;
 import app.code.vista.usuario.CrearEditarUsuario;
 import java.awt.Color;
@@ -31,6 +33,7 @@ public class Vista extends javax.swing.JFrame {
 
     // Declarar variables de datos;
     private final ControladorFactory controladorFactory;
+
     /**
      * Creates new form Vista
      */
@@ -41,6 +44,7 @@ public class Vista extends javax.swing.JFrame {
         listaIndices = new HashMap<>();
         this.setLocationRelativeTo(null);
         this.controladorFactory = ControladorFactory.getInstancia();
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,6 +63,8 @@ public class Vista extends javax.swing.JFrame {
         lblTM1 = new javax.swing.JLabel();
         btnCobrosFios = new javax.swing.JButton();
         btnEditarUsuario = new javax.swing.JButton();
+        btnCuentasContables = new javax.swing.JButton();
+        btnEditarCuenta = new javax.swing.JButton();
         PanelPestania = new javax.swing.JTabbedPane();
         PanelInicio = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
@@ -169,6 +175,46 @@ public class Vista extends javax.swing.JFrame {
             }
         });
 
+        btnCuentasContables.setBackground(new java.awt.Color(204, 204, 204));
+        btnCuentasContables.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnCuentasContables.setForeground(new java.awt.Color(202, 202, 202));
+        btnCuentasContables.setText("CUENTAS CONTABLES");
+        btnCuentasContables.setContentAreaFilled(false);
+        btnCuentasContables.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCuentasContables.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnCuentasContables.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnCuentasContables.setRequestFocusEnabled(false);
+        btnCuentasContables.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCuentasContablesMouseEntered(evt);
+            }
+        });
+        btnCuentasContables.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCuentasContablesActionPerformed(evt);
+            }
+        });
+
+        btnEditarCuenta.setBackground(new java.awt.Color(204, 204, 204));
+        btnEditarCuenta.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnEditarCuenta.setForeground(new java.awt.Color(202, 202, 202));
+        btnEditarCuenta.setText("EDITAR CREAR CUENTA CONTABLE");
+        btnEditarCuenta.setContentAreaFilled(false);
+        btnEditarCuenta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEditarCuenta.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnEditarCuenta.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnEditarCuenta.setRequestFocusEnabled(false);
+        btnEditarCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEditarCuentaMouseEntered(evt);
+            }
+        });
+        btnEditarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarCuentaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
@@ -180,11 +226,12 @@ public class Vista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTM1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCobrosFios, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addComponent(btnEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCuentasContables, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCobrosFios, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEditarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -198,6 +245,10 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(btnCobrosFios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCuentasContables, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btnEditarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -326,6 +377,30 @@ public class Vista extends javax.swing.JFrame {
         PanelPestania.setTabComponentAt(PanelPestania.getTabCount() - 1, titulo);        
     }//GEN-LAST:event_btnEditarUsuarioActionPerformed
 
+    private void btnCuentasContablesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCuentasContablesMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCuentasContablesMouseEntered
+
+    private void btnCuentasContablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentasContablesActionPerformed
+         PanelPestania.addTab("", new ListaCuentaContable(this.controladorFactory.GENERAL));
+        TituloTab titulo = new TituloTab("  CUENTAS_CONTABLES  ");
+        titulo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                PanelPestania.remove(PanelPestania.indexOfTabComponent(titulo));
+            }
+        });
+        PanelPestania.setTabComponentAt(PanelPestania.getTabCount() - 1, titulo);
+    }//GEN-LAST:event_btnCuentasContablesActionPerformed
+
+    private void btnEditarCuentaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarCuentaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarCuentaMouseEntered
+
+    private void btnEditarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarCuentaActionPerformed
+
     public void cerrarVentana(int v) {
         if(listaIndices.get(v) != null){
         PanelPestania.remove(listaIndices.get(v));
@@ -373,6 +448,8 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JPanel PanelInicio;
     private javax.swing.JTabbedPane PanelPestania;
     private javax.swing.JButton btnCobrosFios;
+    private javax.swing.JButton btnCuentasContables;
+    private javax.swing.JButton btnEditarCuenta;
     private javax.swing.JButton btnEditarUsuario;
     private javax.swing.JPanel herramietas;
     private javax.swing.JButton jButton2;
