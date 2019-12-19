@@ -7,8 +7,10 @@ package app.code.controlador.general;
 
 import app.code.common.GeneralExeption;
 import app.code.controlador.administracion.ControladorPantalla;
+import app.code.controlador.contabilidad.ControladorCuentaContable;
 import app.code.controlador.usuario.ControladorUsuario;
 import app.code.modelo.administracion.Pantalla;
+import app.code.modelo.contabilidad.CuentaContable;
 import app.code.modelo.general.Catalogo;
 import app.code.modelo.general.TipoCatalogo;
 import app.code.modelo.usuario.Usuario;
@@ -28,12 +30,14 @@ public class RegistroGeneral {
     private final ControladorCatalogo controladorCatalogo;
     private final ControladorUsuario controladorUsuario;
     private final ControladorPantalla controladorPantalla;
+    private final ControladorCuentaContable controladorCuentaContable;
 
     public RegistroGeneral(EntityManagerFactory entityManager) {
         this.controladorTipoCatalogo = new ControladorTipoCatalogo(entityManager);
         this.controladorCatalogo = new ControladorCatalogo(entityManager);
         this.controladorUsuario = new ControladorUsuario(entityManager);
         this.controladorPantalla = new ControladorPantalla(entityManager);
+        this.controladorCuentaContable = new ControladorCuentaContable(entityManager);
     }
 
     public void guardarCatalogo(Catalogo catalogo) throws GeneralExeption {
@@ -74,5 +78,17 @@ public class RegistroGeneral {
             controladorPantalla.guardar(pantalla);
         } catch (PersistenceException e) {
         }
+    }
+    
+     public void guaradarCuentaContable(CuentaContable cuentaContable) throws GeneralExeption{
+        try {
+            controladorCuentaContable.guaradar(cuentaContable);
+        } catch (PersistenceException e) {
+            throw new GeneralExeption("La cuenta ya esta registrada");
+        }
+    }
+
+    public List<CuentaContable> listaCuentaContable(){
+        return controladorCuentaContable.listaCuentaContable();
     }
 }

@@ -24,9 +24,7 @@ import javax.persistence.Table;
 @Table(name="bg_cuentas_contables")
 public class CuentaContable extends Auditoria{
      
-    @Id 
-    private Long id;
-    
+
     @Column(name="codigo", unique=true, nullable=false)
     private String codigo;
     
@@ -43,21 +41,14 @@ public class CuentaContable extends Auditoria{
     @JoinColumn(name="cat_id", referencedColumnName="id")
     private Catalogo catalago;
     
-    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @JoinColumn(name="cue_con_id", referencedColumnName="id")
-    private CuentaContable cuentaPadre;
+//    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+//    @JoinColumn(name="cue_con_id", referencedColumnName="id")
+//    private CuentaContable cuentaPadre;
 
     public CuentaContable(Long id, boolean activo) {
         super(id, activo);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCodigo() {
         return codigo;
@@ -99,13 +90,4 @@ public class CuentaContable extends Auditoria{
         this.catalago = catalago;
     }
 
-    public CuentaContable getCuentaPadre() {
-        return cuentaPadre;
-    }
-
-    public void setCuentaPadre(CuentaContable cuentaPadre) {
-        this.cuentaPadre = cuentaPadre;
-    }
-    
-    
 }

@@ -394,7 +394,8 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCuentasContablesActionPerformed
 
     private void btnEditarCuentaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarCuentaMouseEntered
-        // TODO add your handling code here:
+         btnCuentasContables.setOpaque(true);
+        btnCuentasContables.setForeground(Color.BLACK);
     }//GEN-LAST:event_btnEditarCuentaMouseEntered
 
     private void btnEditarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCuentaActionPerformed

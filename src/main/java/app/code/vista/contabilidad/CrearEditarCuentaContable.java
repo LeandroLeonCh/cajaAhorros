@@ -7,6 +7,7 @@ package app.code.vista.contabilidad;
 
 import app.code.common.GeneralExeption;
 import app.code.controlador.contabilidad.RegistroContable;
+import app.code.controlador.general.RegistroGeneral;
 import app.code.modelo.contabilidad.CuentaContable;
 import app.code.modelo.general.Catalogo;
 import java.awt.Color;
@@ -19,10 +20,10 @@ import javax.swing.JOptionPane;
  */
 public class CrearEditarCuentaContable extends javax.swing.JFrame {
 
-    private final RegistroContable registroContable;
-    private final DefaultComboBoxModel<CuentaContable> modelComboTipo;
-    private int op;
-    private boolean cargarLista;
+//    private final RegistroGeneral registroGeneral;
+//    private final DefaultComboBoxModel<CuentaContable> modelComboTipo;
+//    private int op;
+//    private boolean cargarLista;
     
     
      /**
@@ -31,11 +32,12 @@ public class CrearEditarCuentaContable extends javax.swing.JFrame {
      * @param registroGeneral 
      */
     
-    public CrearEditarCuentaContable(boolean esEditar, RegistroContable registroContable) {
+    public CrearEditarCuentaContable(boolean esEditar, RegistroContable registroGeneral) {
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.registroContable = registroContable;
-        modelComboTipo = (DefaultComboBoxModel) cbxTipoCuenta.getModel();
+//        this.setLocationRelativeTo(null);
+//        this.registroGeneral = registroGeneral;
+//        //this.registroGeneral = this.registroGeneral;
+//        modelComboTipo = (DefaultComboBoxModel) cbxTipoCuenta.getModel();
         /*
           this.setLocationRelativeTo(null);
         this.registroGeneral = registroGeneral;
@@ -294,18 +296,19 @@ public class CrearEditarCuentaContable extends javax.swing.JFrame {
         cuenta.setNombre(txtNombre.getText().trim());
         cuenta.setDescripcion(txtDescripcion.getText().trim());
         cuenta.setEsTotal(Boolean.valueOf(txtEsTotal.getText().trim()));
-        cuenta.setCuentaPadre(modelComboTipo.getElementAt(cbxTipoCuenta.getSelectedIndex()));
-        try{
-            registroContable.guaradarCuentaContable(cuenta);
-            JOptionPane.showMessageDialog(null, "Cuenta Contable agreagdo satisfactoriamente!", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            limpiar();
-            if (!chxC2.isSelected()){
-                dispose();
-            }
-        }catch (GeneralExeption ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
- 
+        //cuenta.setCuentaPadre(modelComboTipo.getElementAt(cbxTipoCuenta.getSelectedIndex()));
+//        try{
+//            
+//          //  RegistroGeneral.guaradarCuentaContable(cuenta);
+//            JOptionPane.showMessageDialog(null, "Cuenta Contable agreagdo satisfactoriamente!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+//            limpiar();
+//            if (!chxC2.isSelected()){
+//                dispose();
+//            }
+//        }catch (GeneralExeption ex){
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+//        }
+// 
     }
 
     public void limpiar() {

@@ -26,6 +26,8 @@ public class ControladorCuentaContable {
     public ControladorCuentaContable(EntityManagerFactory entiManager) {
         this.entiManager = entiManager;
     }
+
+    
     public EntityManager getEntityManager() {
         return this.entiManager.createEntityManager();
     }

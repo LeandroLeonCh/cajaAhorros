@@ -7,8 +7,6 @@ package app.code.vista.contabilidad;
 
 import app.code.controlador.contabilidad.RegistroContable;
 import app.code.controlador.general.RegistroGeneral;
-import java.util.concurrent.CompletableFuture;
-import javax.persistence.Tuple;
 import javax.swing.table.DefaultTableModel;
 
 /**
