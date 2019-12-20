@@ -24,7 +24,6 @@ public class ControladorFactory {
     public final LogicaNegocioGeneral GENERAL;
     public final LogicaNegocioAdministracion ADMINISTRACION;
     public final LogicaNegocioContabilidad CONTABILIDAD;
-
     
     private ControladorFactory(){
         // Crea la session de la empresa

@@ -15,11 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- *
+ * Clase para mappear la tabla tipos catalogos
  * @author Carlos
  */
 @Entity
-@Table(name="ch_tipos_catalogos")
+@Table(name="bg_tipos_catalogos")
 public class TipoCatalogo extends Auditoria implements Serializable{
 
     @Column(name="codigo", unique=true, nullable=false, length=20)

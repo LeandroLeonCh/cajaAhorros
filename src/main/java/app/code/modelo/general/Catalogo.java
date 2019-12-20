@@ -16,11 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- *
+ * Clase para mappear la tabla catalogos
  * @author Carlos
  */
 @Entity
-@Table(name="ch_catalogos")
+@Table(name="bg_catalogos")
 public class Catalogo extends Auditoria implements Serializable{
 
     @Column(name="codigo", unique=true, nullable=false)
@@ -38,10 +38,6 @@ public class Catalogo extends Auditoria implements Serializable{
 
     public Catalogo() {
         
-    }
-
-    public Catalogo(Long id) {
-        super.setId(id); 
     }
 
     public Catalogo(Long id, boolean activo, String codigo, String nombre, 
@@ -89,7 +85,7 @@ public class Catalogo extends Auditoria implements Serializable{
     }
 
     /**
-     *
+     * Muestra la descripcion del objeto
      * @return
      */
     @Override
