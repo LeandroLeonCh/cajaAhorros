@@ -17,7 +17,7 @@ public class CuentaContable extends Auditoria{
     private Long id;
 
     public CuentaContable(Long id, boolean activo) {
-        super(id, activo);
+       
     }
     
     

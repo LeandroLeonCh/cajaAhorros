@@ -32,16 +32,29 @@ public class Catalogo extends Auditoria implements Serializable{
     @Column(name="descipcion", length=200)
     private String descripcion;
     
-    //private Long idTipoCatalogo;
-    
     @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     @JoinColumn(name="tipo_catalogo_id", referencedColumnName="id")
     private TipoCatalogo tipoCatalogo;
 
-    public Catalogo(Long id, boolean activo) {
-        super(id, activo);
+    public Catalogo() {
+        
+    }
+
+    public Catalogo(Long id) {
+        super.setId(id); 
+    }
+
+    public Catalogo(Long id, boolean activo, String codigo, String nombre, 
+                    String descripcion, TipoCatalogo tipoCatalogo) {
+        super.setId(id);
+        super.setActivo(activo);
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.tipoCatalogo = tipoCatalogo;
     }
    
+    
             
     public String getCodigo() {
         return codigo;
@@ -75,10 +88,13 @@ public class Catalogo extends Auditoria implements Serializable{
         this.tipoCatalogo = tipoCatalogo;
     }
 
-    public Catalogo(Long id, boolean activo, String codigo, String nombre) {
-        super(id, activo);
-        this.codigo = codigo;
-        this.nombre = nombre;
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "[ " + (codigo != null ? codigo : "") + " ] - " + (descripcion != null ? descripcion : "");
     }
     
     

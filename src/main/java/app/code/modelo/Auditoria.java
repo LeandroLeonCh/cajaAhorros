@@ -7,11 +7,11 @@ package app.code.modelo;
 
 import java.util.Date;
 import javax.persistence.Column;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
+import org.hibernate.Session;
 
 /**
  *
@@ -35,18 +35,13 @@ public abstract class Auditoria {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaRegistro;
     
-    public Auditoria(Long id, boolean activo){
-        this.id = id;
-        this.activo = activo;
-    }
-    
-    public void guardar(EntityManager entityManager){
+    public boolean guardar(Session session){
         if(this.id == null){
             this.setActivo(true);
             this.setFechaRegistro(new Date());
             this.setUsuarioRegistro(Long.valueOf(1));
         }
-        entityManager.persist(this);
+        return session.save(this) != null;
     }
     
     

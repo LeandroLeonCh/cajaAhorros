@@ -5,14 +5,14 @@
  */
 package app.code.controlador.general;
 
+import app.code.common.MultiResultTransformer;
 import app.code.modelo.general.TipoCatalogo;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -20,79 +20,53 @@ import javax.persistence.criteria.Root;
  */
 public final class ControladorTipoCatalogo {
     
-    private final EntityManagerFactory entityManager;
+    private final SessionFactory sessionFactory;
     
-    public ControladorTipoCatalogo(EntityManagerFactory entityManager) {
-         this.entityManager = entityManager;
-    }
-
-    public EntityManager getEntityManager() {
-        return this.entityManager.createEntityManager();
+    public ControladorTipoCatalogo(SessionFactory sessionFactory) {
+         this.sessionFactory = sessionFactory;
     }
     
+    public Session getCurrentSession() {
+        return sessionFactory.openSession();
+    }
     
-    public void guardar(TipoCatalogo tipoCatalogo) {
-        EntityManager em = getEntityManager();
+    
+    public boolean guardar(TipoCatalogo tipoCatalogo) {
+        Session session = getCurrentSession();
         try {
-            em.getTransaction().begin();
-    
-            tipoCatalogo.guardar(em);
-            em.getTransaction().commit();
+            return tipoCatalogo.guardar(session);
         } finally {
-            em.close();
+            session.close();
         }
     }
+   
     
-     public List<TipoCatalogo> obtenerTiposCatalogos(){
-        return obtenerTiposCatalogos(true, -1, -1);
+    public List<TipoCatalogo> obtenerTiposCatalogos(String criterio, int maxResults, int firstResult) {
+        return obtenerTiposCatalogos(criterio, maxResults, firstResult, false);
     }
 
-    public List<TipoCatalogo> obtenerTiposCatalogos(int maxResults, int firstResult) {
-        return obtenerTiposCatalogos(false, maxResults, firstResult);
-    }
-
-    private List<TipoCatalogo> obtenerTiposCatalogos(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
+    private List<TipoCatalogo> obtenerTiposCatalogos(String criterio, int maxResults, int firstResult, boolean activos) {
+        Session session = getCurrentSession();
         try {
-            CriteriaBuilder criteria = em.getCriteriaBuilder();
-            CriteriaQuery<TipoCatalogo> criteriaQuery = em.getCriteriaBuilder()
-                    .createQuery(TipoCatalogo.class);
-            Root<TipoCatalogo> tipoCatalogo = criteriaQuery.from(TipoCatalogo.class);
-            criteriaQuery.multiselect(
-                    tipoCatalogo.get("id"),
-                    tipoCatalogo.get("codigo"),
-                    tipoCatalogo.get("nombre"));
-            Query query = em.createQuery(criteriaQuery);
-            if (!all) {
-                query.setMaxResults(maxResults);
-                query.setFirstResult(firstResult);
-            }
-            return query.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-    
-    private List<TipoCatalogo> obtenerTiposCatalogos(boolean activos) {
-        EntityManager em = getEntityManager();
-        try {
-            // Arma el tipo resultado del query
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<TipoCatalogo> cq = cb.createQuery(TipoCatalogo.class);
-            // Arma el query
-            Root<TipoCatalogo> tipoCatalogo = cq.from(TipoCatalogo.class);
-            cq.multiselect(
-                tipoCatalogo.get("id"),
-                tipoCatalogo.get("codigo"),
-                tipoCatalogo.get("nombre"));
-            
+            Criteria criteria = session.createCriteria(TipoCatalogo.class, "TIP");
+            criteria.setProjection(Projections.projectionList()
+                    .add(Projections.property("TIP.id"), "id")
+                    .add(Projections.property("TIP.activo"), "activo")
+                    .add(Projections.property("TIP.codigo"), "codigo")
+                    .add(Projections.property("TIP.nombre"), "nombre"));
             if(activos){
-               cq.where(cb.isTrue(tipoCatalogo.get("activo")));
+                criteria.add(Restrictions.eq("TIP.activo", true));
             }
-            // Retorna el resultado del query
-            return em.createQuery(cq).getResultList();
+            criteria.add(Restrictions.or(
+                Restrictions.ilike("TIP.codigo", "%" + criterio + "%"),
+                Restrictions.ilike("TIP.nombre", "%" + criterio + "%"))
+            );
+            criteria.setResultTransformer(new MultiResultTransformer(TipoCatalogo.class));
+            return criteria.setMaxResults(maxResults)
+                    .setFirstResult(firstResult)
+                    .list();
         } finally {
-            em.close();
+            session.close();
         }
     }
     

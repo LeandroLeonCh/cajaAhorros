@@ -8,13 +8,11 @@ package app.code.vista.general;
 import app.code.common.GeneralExeption;
 import app.code.common.JTextFieldLimit;
 
-import app.code.controlador.general.RegistroGeneral;
+import app.code.controlador.general.LogicaNegocioGeneral;
 import app.code.modelo.general.Catalogo;
 import app.code.modelo.general.TipoCatalogo;
 import java.awt.Color;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import static java.util.concurrent.CompletableFuture.runAsync;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class CrearEditarCatalogo extends JFrame {
 
-    private final RegistroGeneral registroGeneral;
+    private final LogicaNegocioGeneral registroGeneral;
     private final DefaultComboBoxModel<TipoCatalogo> modelComboTipo;
     
     private int op;
@@ -36,22 +34,23 @@ public class CrearEditarCatalogo extends JFrame {
      * @param esEditar
      * @param registroGeneral 
      */
-    public CrearEditarCatalogo(boolean esEditar, RegistroGeneral registroGeneral) {
+    public CrearEditarCatalogo(boolean esEditar, LogicaNegocioGeneral registroGeneral) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.registroGeneral = registroGeneral;
         // Agrega los tipos de catalogo
         modelComboTipo = (DefaultComboBoxModel) cbxTipoCat.getModel();
-        this.cargargDataInicial();
+       this.cargargDataInicial();
+       //registroGeneral.obtenerListaTiposCatalogos();
     }
     
     
     private void cargargDataInicial(){
         this.cargarLista = true;
         CompletableFuture.supplyAsync(()->{ 
-            return registroGeneral.obtenerListaTiposCatalogos(); 
-        }).thenAccept(res -> {
-            res.forEach((tipo) -> {
+            return registroGeneral.obtenerListaTiposCatalogos(""); 
+        }).thenAccept(listaTiposCatalogos -> {
+            listaTiposCatalogos.forEach((tipo) -> {
                 modelComboTipo.addElement(tipo);
             });
         }).thenRun(() -> {this.cargarLista = false;});
@@ -284,7 +283,7 @@ public class CrearEditarCatalogo extends JFrame {
     }//GEN-LAST:event_btnSaveCActionPerformed
 
     private void crearCliente() {
-        Catalogo catalogo = new Catalogo(null, true);
+        Catalogo catalogo = new Catalogo();
         catalogo.setCodigo(txtCodigoCat.getText().trim());
         catalogo.setNombre(txtNombreCat.getText().trim());
         catalogo.setDescripcion(txtDescripcionCat.getText().trim());

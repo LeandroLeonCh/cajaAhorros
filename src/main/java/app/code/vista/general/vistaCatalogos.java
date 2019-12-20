@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 package app.code.vista.general;
-import app.code.controlador.general.RegistroGeneral;
+import app.code.controlador.general.LogicaNegocioGeneral;
+import app.code.modelo.general.Catalogo;
 import java.util.concurrent.CompletableFuture;
-import javax.persistence.Tuple;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -14,14 +14,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class vistaCatalogos extends javax.swing.JPanel {
  
-    private final RegistroGeneral registroGeneral;
+    private final LogicaNegocioGeneral registroGeneral;
     private final DefaultTableModel modelTablaCatalgos;
     private boolean cargarLista;
     /**
      * Creates new form vistaCatalogos
      * @param registroGeneral
      */
-    public vistaCatalogos(RegistroGeneral registroGeneral) {
+    public vistaCatalogos(LogicaNegocioGeneral registroGeneral) {
         // Iniciliza los componentes
         initComponents();
         
@@ -39,25 +39,24 @@ public class vistaCatalogos extends javax.swing.JPanel {
         modelTablaCatalgos = (DefaultTableModel) tblListaCatalogos.getModel();
         //tblListaCatalogos.getColumn("ACCION").setCellEditor(new DefaultCellEditor(new JButton()));
         listarCatalogos();
-        //registroGeneral.obtenerCatalogos(); 
     }
     
     private void listarCatalogos(){
         // Obtiene la lista de catalgos
         this.cargarLista = true;
-        CompletableFuture.supplyAsync(()-> { 
+        CompletableFuture.supplyAsync(() -> { 
             return registroGeneral.obtenerCatalogosPorRango("", 1); 
         }).thenAccept(listaCatalogos -> {
             int index = 0;
             modelTablaCatalgos.setNumRows(0);
-            for ( Tuple catalogo: listaCatalogos ) {
+            for ( Catalogo catalogo: listaCatalogos ) {
                 modelTablaCatalgos.addRow(new Object[]{
                     "", 
                     "" + ++index, 
-                    catalogo.get(2), 
-                    catalogo.get(3), 
-                    catalogo.get(4), 
-                    "[ " + catalogo.get(5) + " ] - " + catalogo.get(6)
+                    catalogo.getCodigo(), 
+                    catalogo.getNombre(), 
+                    catalogo.getDescripcion(), 
+                    catalogo.getTipoCatalogo()
                 });
             }
         }).thenRun(() -> {this.cargarLista = false;});

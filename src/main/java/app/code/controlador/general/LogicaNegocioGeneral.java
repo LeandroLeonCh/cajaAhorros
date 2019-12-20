@@ -9,34 +9,32 @@ import app.code.common.GeneralExeption;
 import app.code.modelo.general.Catalogo;
 import app.code.modelo.general.TipoCatalogo;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceException;
-import javax.persistence.Tuple;
+import org.hibernate.SessionFactory;
 
 /**
  *
  * @author Carlos
  */
-public class RegistroGeneral {
+public class LogicaNegocioGeneral {
   
     // Declarion de todos los contorladores del modulo
     private final ControladorTipoCatalogo controladorTipoCatalogo;
     private final ControladorCatalogo controladorCatalogo;
     
-    public RegistroGeneral(EntityManagerFactory entityManager){
-        this.controladorTipoCatalogo = new ControladorTipoCatalogo(entityManager);
-        this.controladorCatalogo = new ControladorCatalogo(entityManager);
+    public LogicaNegocioGeneral(SessionFactory sessionFactory){
+        this.controladorTipoCatalogo = new ControladorTipoCatalogo(sessionFactory);
+        this.controladorCatalogo = new ControladorCatalogo(sessionFactory);
     }
     
-    public void guardarCatalogo(Catalogo catalogo) throws GeneralExeption {
-        try{
-            controladorCatalogo.guardar(catalogo);
-        }catch(PersistenceException ex){
-            throw new GeneralExeption("El catalgo ya se encuentra registrado!");
-        }
+    public boolean guardarCatalogo(Catalogo catalogo) throws GeneralExeption {
+//        try{
+            return controladorCatalogo.guardarCatalogo(catalogo);
+////        }catch( Int ex){
+//            throw new GeneralExeption("El catalgo ya se encuentra registrado!");
+//        }
     }
     
-    public List<Tuple> obtenerCatalogosPorRango(String criterio, int pagina){
+    public List<Catalogo> obtenerCatalogosPorRango(String criterio, int pagina){
         return controladorCatalogo.obtenerCatalogosPorRango(criterio, 5, pagina);
     }
     
@@ -44,8 +42,8 @@ public class RegistroGeneral {
         controladorTipoCatalogo.guardar(tipoCatalogo);
     }
     
-    public List<TipoCatalogo> obtenerListaTiposCatalogos() {
-        return controladorTipoCatalogo.obtenerTiposCatalogos();
+    public List<TipoCatalogo> obtenerListaTiposCatalogos(String criterio) {
+        return controladorTipoCatalogo.obtenerTiposCatalogos(criterio, 24, 0);
     }
     
 }

@@ -7,9 +7,10 @@ package app.code.modelo.general;
 
 import app.code.modelo.Auditoria;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,19 +31,15 @@ public class TipoCatalogo extends Auditoria implements Serializable{
     @Column(name="descipcion", length=200)
     private String descripcion;
     
-    @OneToMany
-    private Set<Catalogo> listaCatalogos;
+    @OneToMany(mappedBy = "tipoCatalogo", fetch=FetchType.LAZY)
+    private List<Catalogo> listaCatalogos;
 
     public TipoCatalogo() {
-        super(null, false);
-    }
     
-    public TipoCatalogo(Long id, boolean activo) {
-        super(id, activo);
     }
        
-    public TipoCatalogo(Long id, boolean activo, String codigo, String nombre) {
-        super(id, activo);
+    public TipoCatalogo(Long id, String codigo, String nombre) {
+        super.setId(id);
         this.codigo = codigo;
         this.nombre = nombre;
     }
@@ -71,17 +68,17 @@ public class TipoCatalogo extends Auditoria implements Serializable{
         this.descripcion = descripcion;
     }
 
-    public Set<Catalogo> getListaCatalogos() {
+    public List<Catalogo> getListaCatalogos() {
         return listaCatalogos;
     }
 
-    public void setListaCatalogos(Set<Catalogo> listaCatalogos) {
+    public void setListaCatalogos(List<Catalogo> listaCatalogos) {
         this.listaCatalogos = listaCatalogos;
     }
 
     @Override
     public String toString() {
-        return "[ " + codigo + " ] - " + nombre;
+        return "[ " + (codigo != null ? codigo : "") + " ] - " + (descripcion != null ? descripcion : "");
     }
    
     

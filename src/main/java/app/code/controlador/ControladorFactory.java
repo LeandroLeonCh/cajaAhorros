@@ -5,9 +5,9 @@
  */
 package app.code.controlador;
 
-import app.code.controlador.general.RegistroGeneral;
-import javax.persistence.EntityManagerFactory;
+import app.code.controlador.general.LogicaNegocioGeneral;
 import javax.persistence.Persistence;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -19,16 +19,16 @@ public class ControladorFactory {
     private static ControladorFactory INSTANCIA;
     
     // Declaracion de todos los modulos
-    public final RegistroGeneral GENERAL;
-    public RegistroGeneral CONTABILIDAD;
-    
-    private ControladorFactory(){
-        // Crea el manager de persistencia
-        EntityManagerFactory entityManagerFactory = Persistence
-                .createEntityManagerFactory("caja_ahorros");
+    public final LogicaNegocioGeneral GENERAL;
 
+    private ControladorFactory(){
+        // Crea la session de la empresa
+        SessionFactory sessionAcitive = Persistence
+                .createEntityManagerFactory("caja_ahorros")
+                .unwrap(SessionFactory.class);
+        
         // Instancia los registro de los modulos
-        this.GENERAL = new RegistroGeneral(entityManagerFactory);
+        this.GENERAL = new LogicaNegocioGeneral(sessionAcitive);
     }
     
     public static ControladorFactory getInstancia(){

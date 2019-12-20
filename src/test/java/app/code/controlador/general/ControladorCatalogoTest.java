@@ -8,7 +8,6 @@ package app.code.controlador.general;
 import app.code.modelo.general.Catalogo;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Tuple;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -92,8 +91,8 @@ public class ControladorCatalogoTest {
         int maxResults = 0;
         int firstResult = 0;
         ControladorCatalogo instance = null;
-        List<Tuple> expResult = null;
-        List<Tuple> result = instance.obtenerCatalogosPorRango(maxResults, firstResult);
+        List<Catalogo> expResult = null;
+        List<Catalogo> result = instance.obtenerCatalogosPorRango(maxResults, firstResult);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -109,8 +108,8 @@ public class ControladorCatalogoTest {
         int maxResults = 0;
         int firstResult = 0;
         ControladorCatalogo instance = null;
-        List<Tuple> expResult = null;
-        List<Tuple> result = instance.obtenerCatalogosPorRango(criterio, maxResults, firstResult);
+        List<Catalogo> expResult = null;
+        List<Catalogo> result = instance.obtenerCatalogosPorRango(criterio, maxResults, firstResult);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

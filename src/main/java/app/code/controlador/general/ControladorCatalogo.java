@@ -5,141 +5,163 @@
  */
 package app.code.controlador.general;
 
+import app.code.common.MultiResultTransformer;
 import app.code.modelo.general.Catalogo;
-import app.code.modelo.general.TipoCatalogo;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.Tuple;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
-
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 /**
  *
  * @author Carlos
  */
 public final class ControladorCatalogo {
     
-    private final EntityManagerFactory entityManager;
+    private final SessionFactory sessionFactory;
     
-    public ControladorCatalogo(EntityManagerFactory entityManager) {
-         this.entityManager = entityManager;
+    public ControladorCatalogo(SessionFactory sessionFactory) {
+         this.sessionFactory = sessionFactory;
     }
 
-    public EntityManager getEntityManager() {
-        return this.entityManager.createEntityManager();
+    public Session getCurrentSession() {
+        return sessionFactory.openSession();
     }
     
-    public void guardar(Catalogo catalogo) {
-        EntityManager em = getEntityManager();
+    public boolean guardarCatalogo(Catalogo catalogo) {
+        Session session = getCurrentSession();
         try {
-            em.getTransaction().begin();
-            // Guarda el catalago
-                   // Guarda el catalago
-            TipoCatalogo tipoCatalogo = catalogo.getTipoCatalogo();
-            if (tipoCatalogo != null) {
-                tipoCatalogo = em.getReference(tipoCatalogo.getClass(), tipoCatalogo.getId());
-                catalogo.setTipoCatalogo(tipoCatalogo);
-            }
-            catalogo.guardar(em);
-            em.getTransaction().commit();
+            return catalogo.guardar(session);
         } finally {
-            if (em != null) {
-                em.close();
-            }
+            session.close();
         }
     }
     
-    public List<Catalogo> obtenerCatalogosPorTipo(Long tipoId) {
-        EntityManager em = getEntityManager();
+    public Catalogo buscarCatalogo(Long id) {
+        Session session = getCurrentSession();
         try {
-            // Arma el tipo resultado del query
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Catalogo> cq = cb.createQuery(Catalogo.class);
-            // Arma el query
-            Root<Catalogo> catalogo = cq.from(Catalogo.class);
-            cq.multiselect(
-                catalogo.get("id"), 
-                catalogo.get("codigo"),
-                catalogo.get("nombre"));
-            // Agrega el filtro
-            cq.where(
-                cb.and(
-                    cb.isTrue(catalogo.get("activo")), 
-                    cb.equal(catalogo.get("tipoCatalogo").get("id"), tipoId)
-                )
+            // Arma el query y los joins
+            Criteria criteria = session.createCriteria(Catalogo.class, "CAT")
+                .createAlias("CAT.tipoCatalogo", "TIP");
+            // Agrego las columnas que quiero obtener
+            criteria.setProjection(Projections.projectionList()
+                .add(Projections.property("CAT.id"), "id")
+                .add(Projections.property("CAT.activo"), "activo")
+                .add(Projections.property("CAT.codigo"), "codigo")
+                .add(Projections.property("CAT.nombre"), "nombre")
+                .add(Projections.property("CAT.descripcion"), "descripcion")
+                .add(Projections.property("TIP.id"), "tipoCatalogo.id")
             );
-            // Retorna el resultado del query
-            return em.createQuery(cq).getResultList();
+            // Agrega los criterios de busqueda
+            criteria.add(Restrictions.eq("CAT.id", id));
+            
+            // Agrega el tipo de resultado a retornar
+            criteria.setResultTransformer(new MultiResultTransformer(Catalogo.class));
+            
+            // Retorna el resultado de la busqueda
+            return (Catalogo) criteria.uniqueResult();
+            
         } finally {
-            em.close();
+            session.close();
+        }
+    }
+        
+    public List<Catalogo> obtenerCatalogosPorTipo(Long tipoId) {
+        Session session = getCurrentSession();
+        try {
+            // Arma el query y los joins
+            Criteria criteria = session.createCriteria(Catalogo.class, "CAT")
+                .createAlias("CAT.tipoCatalogo", "TIP", JoinType.INNER_JOIN,
+                        Restrictions.and(Restrictions.eq("TIP.id", tipoId),
+                                Restrictions.eq("TIP.estado", true)
+                        )
+                );
+            // Agrego las columnas que quiero obtener
+            criteria.setProjection(Projections.projectionList()
+                .add(Projections.property("CAT.id"), "id")
+                .add(Projections.property("CAT.codigo"), "codigo")
+                .add(Projections.property("CAT.nombre"), "nombre")
+            );
+            // Agrega los criterios de busqueda
+            criteria.add(Restrictions.eq("CAT.estado", true));
+            
+            // Agrega el tipo de resultado a retornar
+            criteria.setResultTransformer(new MultiResultTransformer(Catalogo.class));
+            
+            // Retorna el resultado del query
+            return criteria.list();
+        } finally {
+            session.close();
         }
     }
 
-    public List<Tuple> obtenerCatalogosPorRango(int maxResults, int firstResult) {
-        return obtenerCatalogosPorRango("", maxResults, firstResult);
+    public List<Catalogo> obtenerCatalogosPorRango(String criterio, int maxResults, int firstResult) {
+        return obtenerCatalogosPorRango(criterio, maxResults, firstResult, false);
     }
     
-    public List<Tuple> obtenerCatalogosPorRango(String criterio, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
+    
+    public List<Catalogo> obtenerCatalogosPorRango(String criterio, int maxResults, int firstResult, boolean activos) {
+        Session session = getCurrentSession();
         try {
-            // Arma el tipo resultado del query
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
-            
-            // Arma el query
-            Root<Catalogo> catalogo = cq.from(Catalogo.class);
-            Join<Catalogo, TipoCatalogo> tipoCatalogo = catalogo.join("tipoCatalogo", JoinType.INNER);
-            cq.multiselect(
-                catalogo.get("id"), 
-                catalogo.get("activo"), 
-                catalogo.get("codigo"),
-                catalogo.get("nombre"),
-                catalogo.get("descripcion"),
-                tipoCatalogo.get("codigo"),
-                tipoCatalogo.get("nombre"));
-            // Agrega el criterio
-            if (!(criterio == null || criterio.isEmpty())) {
-                criterio = criterio.toUpperCase();
-                cq.where(
-                    cb.or(
-                        cb.like(cb.upper(catalogo.get("codigo")),
-                                "%" + criterio + "%"),
-                        cb.like(cb.upper(catalogo.get("nombre")),
-                                "%" + criterio + "%")
-                    )
-                );
+            // Arma el query y los joins
+            Criteria criteria = session.createCriteria(Catalogo.class, "CAT")
+                .createAlias("CAT.tipoCatalogo", "TIP", JoinType.INNER_JOIN);
+            // Agrego las columnas que quiero obtener
+            criteria.setProjection(Projections.projectionList()
+                .add(Projections.property("CAT.id"), "id")
+                .add(Projections.property("CAT.activo"), "activo")
+                .add(Projections.property("CAT.codigo"), "codigo")
+                .add(Projections.property("CAT.nombre"), "nombre")
+                .add(Projections.property("CAT.descripcion"), "descripcion")
+                .add(Projections.property("TIP.id"), "tipoCatalogo.id")
+                .add(Projections.property("TIP.codigo"), "tipoCatalogo.codigo")
+                .add(Projections.property("TIP.nombre"), "tipoCatalogo.nombre")
+            );
+            if (activos){
+               criteria.add(Restrictions.eq("CAT.activo", true));
             }
+            // Agrega los criterios de busqueda
+            criteria.add(Restrictions.or(
+                Restrictions.ilike("CAT.codigo", "%" + criterio + "%"),
+                Restrictions.ilike("CAT.nombre", "%" + criterio + "%"))
+            );
+            
+            // Agrega el tipo de resultado a retornar
+            criteria.setResultTransformer(new MultiResultTransformer(Catalogo.class));
+            
             // Retorna el resultado del query
-            return em.createQuery(cq)
-                    .setMaxResults(maxResults)
+            return criteria.setMaxResults(maxResults)
                     .setFirstResult(firstResult)
-                    .getResultList();
+                    .list();
         } finally {
-            em.close();
+            session.close();
         }
     }
 
-    public Catalogo findCatalogo(Long id) {
-        EntityManager em = getEntityManager();
-        try {
-            return em.find(Catalogo.class, id);
-        } finally {
-            em.close();
-        }
+    public int obtenerCatalogoCount(String criterio){
+        return obtenerCatalogoCount(criterio, false);
     }
-
-    public int getCatalogoCount() {
-        EntityManager em = getEntityManager();
+    
+    public int obtenerCatalogoCount(String criterio, boolean activos) {
+        Session session = getCurrentSession();
         try {
-            Query q = em.createQuery("SELECT count(o) FROM Catalogo as o");
-            return ((Long) q.getSingleResult()).intValue();
+            // Arma el query y los joins
+            Criteria criteria = session.createCriteria(Catalogo.class, "CAT");
+            //Agrego los atributos que quiero retornar
+            criteria.setProjection(Projections.count("CAT.id"));
+            // Agrega los criterios de busqueda
+            if (activos){
+               criteria.add(Restrictions.eq("CAT.activo", true));
+            }
+            criteria.add(Restrictions.or(
+                Restrictions.ilike("CAT.codigo", "%" + criterio + "%"),
+                Restrictions.ilike("CAT.nombre", "%" + criterio + "%"))
+            );
+            return (int) criteria.uniqueResult();
         } finally {
-            em.close();
+            session.close();
         }
     }
     

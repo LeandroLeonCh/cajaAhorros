@@ -24,7 +24,7 @@ public class Perfil extends Auditoria {
     private String descripcion;
 
     public Perfil(Long id, boolean activo) {
-        super(id, activo);
+      
     }
     
 }

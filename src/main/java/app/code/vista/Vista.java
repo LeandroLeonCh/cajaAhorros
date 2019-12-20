@@ -130,7 +130,7 @@ public class Vista extends javax.swing.JFrame {
         btnCobrosFios.setBackground(new java.awt.Color(204, 204, 204));
         btnCobrosFios.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         btnCobrosFios.setForeground(new java.awt.Color(202, 202, 202));
-        btnCobrosFios.setText("CATALGOS");
+        btnCobrosFios.setText("CATALAGOS");
         btnCobrosFios.setContentAreaFilled(false);
         btnCobrosFios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCobrosFios.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
