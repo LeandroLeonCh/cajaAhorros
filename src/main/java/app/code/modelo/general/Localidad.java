@@ -16,12 +16,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Clase para mappear la tabla catalogos
+ * Clase para mappear la tabla localidades
  * @author Carlos
  */
 @Entity
-@Table(name="bg_catalogos")
-public class Catalogo extends Auditoria implements Serializable{
+@Table(name="bg_localidades")
+public class Localidad extends Auditoria implements Serializable {
 
     @Column(name="codigo", unique=true, nullable=false)
     private String codigo;
@@ -29,27 +29,28 @@ public class Catalogo extends Auditoria implements Serializable{
     @Column(name="nombre", nullable=false)
     private String nombre;
     
-    @Column(name="descipcion", length=200)
-    private String descripcion;
+    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @JoinColumn(name="tipo_localidad_id", referencedColumnName="id")
+    private TipoCatalogo tipoLocalidad;
     
     @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @JoinColumn(name="tipo_catalogo_id", referencedColumnName="id")
-    private TipoCatalogo tipoCatalogo;
-
-    public Catalogo() {
+    @JoinColumn(name="localidad_padre_id", referencedColumnName="id")
+    private Localidad localidadPadre;
+        
+    public Localidad() {
         
     }
 
-    public Catalogo(Long id, boolean activo, String codigo, String nombre, 
-                    String descripcion, TipoCatalogo tipoCatalogo) {
+    public Localidad(Long id, boolean activo, String codigo, String nombre, TipoCatalogo tipoLocalidad, Localidad localidadPadre) {
         super.setId(id);
         super.setActivo(activo);
         this.codigo = codigo;
         this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.tipoCatalogo = tipoCatalogo;
+        this.tipoLocalidad = tipoLocalidad;
+        this.localidadPadre = localidadPadre;
     }
-   
+
+
     
             
     public String getCodigo() {
@@ -66,22 +67,6 @@ public class Catalogo extends Auditoria implements Serializable{
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public TipoCatalogo getTipoCatalogo() {
-        return tipoCatalogo;
-    }
-
-    public void setTipoCatalogo(TipoCatalogo tipoCatalogo) {
-        this.tipoCatalogo = tipoCatalogo;
     }
 
     /**
