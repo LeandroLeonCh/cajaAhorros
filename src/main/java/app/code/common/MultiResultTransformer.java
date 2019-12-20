@@ -87,10 +87,11 @@ public class MultiResultTransformer implements ResultTransformer{
      * @param objeto
      * @param registros 
      */
+        @SuppressWarnings("empty-statement")
     private void agregarObjeto(Object objeto, Map<String, Object> registros){    
         
         Map<String, Map<String, Object>> subClassAtributos = new HashMap<>();
-        registros.entrySet().forEach((registro) -> {
+        registros.entrySet().forEach((Map.Entry<String, Object> registro) -> {
             int indexSeparador = registro.getKey().indexOf(this.ALIAS_SEPARATOR);
             String nombreAtributo = registro.getKey().substring(0, indexSeparador);
             String nombreAtributoClass = registro.getKey().substring(indexSeparador + 1);
@@ -105,7 +106,7 @@ public class MultiResultTransformer implements ResultTransformer{
         });
         
         // Recorre los atibutos subClass
-        for (Map.Entry<String, Map<String, Object>> subClassAtributo : subClassAtributos.entrySet()) {
+        subClassAtributos.entrySet().forEach((subClassAtributo) -> {
             Field atributo = obtenerFieldModel(objeto.getClass(), subClassAtributo.getKey());
             Map <String, Object> valores = subClassAtributo.getValue();
             if (atributo.getType().equals(List.class)) {
@@ -125,7 +126,7 @@ public class MultiResultTransformer implements ResultTransformer{
                         .get(objeto);
                 agregarObjeto(subObject, valores);
             }
-        };
+        });
     }
     
     /**

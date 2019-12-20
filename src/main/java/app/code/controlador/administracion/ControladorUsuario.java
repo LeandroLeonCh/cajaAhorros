@@ -6,16 +6,8 @@
 package app.code.controlador.administracion;
 
 import app.code.common.MultiResultTransformer;
-import app.code.modelo.general.TipoCatalogo;
 import app.code.modelo.administracion.Usuario;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.Tuple;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

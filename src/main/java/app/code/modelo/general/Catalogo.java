@@ -32,14 +32,18 @@ public class Catalogo extends Auditoria implements Serializable{
     @Column(name="descipcion", length=200)
     private String descripcion;
     
-    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @ManyToOne(cascade=CascadeType.REMOVE, fetch=FetchType.LAZY)
     @JoinColumn(name="tipo_catalogo_id", referencedColumnName="id")
     private TipoCatalogo tipoCatalogo;
 
     public Catalogo() {
         
     }
-
+    
+    public Catalogo(Long id) {
+        super.setId(id);
+    }
+        
     public Catalogo(Long id, boolean activo, String codigo, String nombre, 
                     String descripcion, TipoCatalogo tipoCatalogo) {
         super.setId(id);
@@ -50,6 +54,13 @@ public class Catalogo extends Auditoria implements Serializable{
         this.tipoCatalogo = tipoCatalogo;
     }
    
+    public Catalogo(String codigo, String nombre, String descripcion, 
+                    TipoCatalogo tipoCatalogo) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.tipoCatalogo = tipoCatalogo;
+    }
     
             
     public String getCodigo() {

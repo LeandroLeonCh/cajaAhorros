@@ -6,14 +6,16 @@
 package app.code.controlador.general;
 
 import app.code.modelo.general.Catalogo;
+import app.code.modelo.general.TipoCatalogo;
 import java.util.List;
-import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -21,50 +23,42 @@ import static org.junit.Assert.*;
  */
 public class ControladorCatalogoTest {
     
-    public ControladorCatalogoTest() {
-    }
+    static ControladorCatalogo instanciaControlador;
     
     @BeforeClass
     public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+        // Crea la session de la empresa
+        SessionFactory sessionAcitive = Persistence
+                .createEntityManagerFactory("caja_ahorros")
+                .unwrap(SessionFactory.class);
+        // Iniciliza el contructor
+        instanciaControlador = new ControladorCatalogo(sessionAcitive);
     }
 
     /**
-     * Test of getEntityManager method, of class ControladorCatalogo.
+     * Test of guardarCatalogo method, of class ControladorCatalogo.
      */
     @Test
-    public void testGetEntityManager() {
-        System.out.println("getEntityManager");
-        ControladorCatalogo instance = null;
-        EntityManager expResult = null;
-        //EntityManager result = instance.getEntityManager();
-        //assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGuardarCatalogo() {
+        System.out.println("guardarCatalogo");
+        Catalogo catalogo = new Catalogo("Tets3", "Tets1", "Tets1", 
+                new TipoCatalogo(Integer.toUnsignedLong(2))
+        );
+        boolean resultado = instanciaControlador.guardarCatalogo(catalogo);
+        assertTrue(resultado);
     }
 
     /**
-     * Test of guardar method, of class ControladorCatalogo.
+     * Test of buscarCatalogo method, of class ControladorCatalogo.
      */
     @Test
-    public void testGuardar() {
-        System.out.println("guardar");
-        Catalogo catalogo = null;
-        ControladorCatalogo instance = null;
-        //instance.guardar(catalogo);
+    public void testBuscarCatalogo() {
+        System.out.println("buscarCatalogo");
+        Catalogo expResult = new Catalogo(Integer.toUnsignedLong(8));
+        Catalogo resultado = instanciaControlador.buscarCatalogo(Integer.toUnsignedLong(8));
+        assertEquals(expResult, resultado);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // fail("The test case is a prototype.");
     }
 
     /**
@@ -78,22 +72,6 @@ public class ControladorCatalogoTest {
         List<Catalogo> expResult = null;
         List<Catalogo> result = instance.obtenerCatalogosPorTipo(tipoId);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of obtenerCatalogosPorRango method, of class ControladorCatalogo.
-     */
-    @Test
-    public void testObtenerCatalogosPorRango_int_int() {
-        System.out.println("obtenerCatalogosPorRango");
-        int maxResults = 0;
-        int firstResult = 0;
-        ControladorCatalogo instance = null;
-        List<Catalogo> expResult = null;
-       // List<Catalogo> result = instance.obtenerCatalogosPorRango(maxResults, firstResult);
-       // assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -116,30 +94,35 @@ public class ControladorCatalogoTest {
     }
 
     /**
-     * Test of findCatalogo method, of class ControladorCatalogo.
+     * Test of obtenerCatalogosPorRango method, of class ControladorCatalogo.
      */
     @Test
-    public void testFindCatalogo() {
-        System.out.println("findCatalogo");
-        Long id = null;
+    public void testObtenerCatalogosPorRango_4args() {
+        System.out.println("obtenerCatalogosPorRango");
+        String criterio = "";
+        int maxResults = 0;
+        int firstResult = 0;
+        boolean activos = false;
         ControladorCatalogo instance = null;
-        Catalogo expResult = null;
-       // Catalogo result = instance.findCatalogo(id);
-       // assertEquals(expResult, result);
+        List<Catalogo> expResult = null;
+        List<Catalogo> result = instance.obtenerCatalogosPorRango(criterio, maxResults, firstResult, activos);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
+    
     /**
-     * Test of getCatalogoCount method, of class ControladorCatalogo.
+     * Test of obtenerCatalogoCount method, of class ControladorCatalogo.
      */
     @Test
-    public void testGetCatalogoCount() {
-        System.out.println("getCatalogoCount");
+    public void testObtenerCatalogoCount_String_boolean() {
+        System.out.println("obtenerCatalogoCount");
+        String criterio = "";
+        boolean activos = false;
         ControladorCatalogo instance = null;
         int expResult = 0;
-        //int result = instance.getCatalogoCount();
-      // assertEquals(expResult, result);
+        int result = instance.obtenerCatalogoCount(criterio, activos);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

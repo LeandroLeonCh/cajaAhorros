@@ -14,7 +14,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
-import org.hibernate.transform.ResultTransformer;
 
 /**
  *
@@ -32,17 +31,26 @@ public class ControladorPantalla {
         return sessionFactory.openSession();
     }
 
+    public void editarPantalla(Pantalla pantalla) {
+        Session session = getCurrentSession();
+        try {
+            session.getTransaction().begin();
+            session.update(pantalla);
+            session.getTransaction().commit();
+        } finally {
+            session.close();
+        }
+    }
+        
     public boolean guardarPantalla(Pantalla pantalla) {
         Session session = getCurrentSession();
         try {
             session.getTransaction().begin();
-            boolean guardado =pantalla.guardar(session);
-            session.getTransaction().commit();
-            return guardado;
+            return pantalla.guardar(session);
         } finally {
+            session.getTransaction().commit();
             session.close();
         }
-
     }
     
     public Pantalla buscarPantalla(Long id) {
@@ -58,12 +66,9 @@ public class ControladorPantalla {
                     .add(Projections.property("PAN.esAccion"), "esAccion")
                     .add(Projections.property("TIP.id"), "tipoPantalla.id")
             );
-
             criteria.add(Restrictions.eq("PAN.id", id));
-
             criteria.setResultTransformer(new MultiResultTransformer(Pantalla.class));
             return (Pantalla) criteria.uniqueResult();
-
         } finally {
             session.close();
         }

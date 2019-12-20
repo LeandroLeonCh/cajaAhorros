@@ -35,7 +35,11 @@ public class TipoCatalogo extends Auditoria implements Serializable{
     private List<Catalogo> listaCatalogos;
 
     public TipoCatalogo() {
+        
+    }
     
+    public TipoCatalogo(Long id) {
+        super.setId(id);
     }
        
     public TipoCatalogo(Long id, boolean activo, String codigo, String nombre) {
