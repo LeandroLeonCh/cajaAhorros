@@ -38,8 +38,9 @@ public class TipoCatalogo extends Auditoria implements Serializable{
     
     }
        
-    public TipoCatalogo(Long id, String codigo, String nombre) {
+    public TipoCatalogo(Long id, boolean activo, String codigo, String nombre) {
         super.setId(id);
+        super.setActivo(activo);
         this.codigo = codigo;
         this.nombre = nombre;
     }
@@ -78,7 +79,7 @@ public class TipoCatalogo extends Auditoria implements Serializable{
 
     @Override
     public String toString() {
-        return "[ " + (codigo != null ? codigo : "") + " ] - " + (descripcion != null ? descripcion : "");
+        return "[ " + (codigo != null ? codigo : "") + " ] - " + (nombre != null ? nombre : "");
     }
    
     
