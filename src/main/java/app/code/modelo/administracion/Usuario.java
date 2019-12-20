@@ -22,7 +22,7 @@ public class Usuario extends Auditoria implements Serializable {
     @Column(name = "username")
     private String usuario;
 
-    @Column(name = "password")
+    @Column(name = "contrasenia")
     private String contrasenia;
 
     @Column(name = "nombre")

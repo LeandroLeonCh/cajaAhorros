@@ -54,14 +54,14 @@ public class ControladorPantalla {
          
             // Agrego las columnas que quiero obtener
             criteria.setProjection(Projections.projectionList()
-                    .add(Projections.property("PAN.id"), "id")
-                    .add(Projections.property("PAN.activo"), "activo")
-                    .add(Projections.property("PAN.codigo"), "codigo")
-                    .add(Projections.property("PAN.nombre"), "nombre")
-                    .add(Projections.property("PAN.esAccion"), "esAccion")
-                    .add(Projections.property("TIP.id"), "tipoPantalla.id")
-                    .add(Projections.property("TIP.codigo"), "tipoPantalla.codigo")
-                    .add(Projections.property("TIP.nombre"), "tipoPantalla.nombre")
+                .add(Projections.property("PAN.id"), "id")
+                .add(Projections.property("PAN.activo"), "activo")
+                .add(Projections.property("PAN.codigo"), "codigo")
+                .add(Projections.property("PAN.nombre"), "nombre")
+                .add(Projections.property("PAN.esAccion"), "esAccion")
+                .add(Projections.property("TIP.id"), "tipoPantalla.id")
+                .add(Projections.property("TIP.codigo"), "tipoPantalla.codigo")
+                .add(Projections.property("TIP.nombre"), "tipoPantalla.nombre")
             );
             
             if (activos) {
