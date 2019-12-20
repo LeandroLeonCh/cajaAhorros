@@ -9,9 +9,9 @@
     <class>app.code.modelo.contabilidad.CuentaContable</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/caja_ahorros?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="prueba"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="CAR-1moro1-CAR"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="javax.persistence.query.timeout" value="30"/>
       <property name="hibernate.format_sql" value="true"/>
