@@ -14,6 +14,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
+import org.hibernate.transform.ResultTransformer;
 
 /**
  *
@@ -34,11 +35,38 @@ public class ControladorPantalla {
     public boolean guardarPantalla(Pantalla pantalla) {
         Session session = getCurrentSession();
         try {
-            return pantalla.guardar(session);
+            session.getTransaction().begin();
+            boolean guardado =pantalla.guardar(session);
+            session.getTransaction().commit();
+            return guardado;
         } finally {
             session.close();
         }
 
+    }
+    
+    public Pantalla buscarPantalla(Long id) {
+        Session session = getCurrentSession();
+        try {
+            Criteria criteria = session.createCriteria(Pantalla.class, "PAN")
+                    .createAlias("PAN.tipoPantalla", "TIP", JoinType.INNER_JOIN);
+            criteria.setProjection(Projections.projectionList()
+                    .add(Projections.property("PAN.id"), "id")
+                    .add(Projections.property("PAN.activo"), "activo")
+                    .add(Projections.property("PAN.codigo"), "codigo")
+                    .add(Projections.property("PAN.nombre"), "nombre")
+                    .add(Projections.property("PAN.esAccion"), "esAccion")
+                    .add(Projections.property("TIP.id"), "tipoPantalla.id")
+            );
+
+            criteria.add(Restrictions.eq("PAN.id", id));
+
+            criteria.setResultTransformer(new MultiResultTransformer(Pantalla.class));
+            return (Pantalla) criteria.uniqueResult();
+
+        } finally {
+            session.close();
+        }
     }
     
     public List<Pantalla> obtnerPantallaPorRango(String cirterio, int maxResults, int firstResult){
@@ -82,4 +110,5 @@ public class ControladorPantalla {
             session.close();
         }
     }
+    
 }
