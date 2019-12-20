@@ -33,7 +33,10 @@ public final class ControladorCatalogo {
     public boolean guardarCatalogo(Catalogo catalogo) {
         Session session = getCurrentSession();
         try {
-            return catalogo.guardar(session);
+            session.getTransaction().begin();
+            boolean guardado = catalogo.guardar(session);
+            session.getTransaction().commit();
+            return guardado;
         } finally {
             session.close();
         }

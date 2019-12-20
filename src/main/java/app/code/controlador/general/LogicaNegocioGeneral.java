@@ -37,13 +37,21 @@ public class LogicaNegocioGeneral {
     public List<Catalogo> obtenerCatalogosPorRango(String criterio, int pagina){
         return controladorCatalogo.obtenerCatalogosPorRango(criterio, 5, pagina);
     }
-    
+
     public void guardarTipoCatalogo(TipoCatalogo tipoCatalogo) throws GeneralExeption {
         controladorTipoCatalogo.guardar(tipoCatalogo);
     }
-    
-    public List<TipoCatalogo> obtenerListaTiposCatalogos(String criterio) {
-        return controladorTipoCatalogo.obtenerTiposCatalogos(criterio, 24, 0);
+
+    public List<TipoCatalogo> obtenerListaTiposCatalogos(String criterio, int pagina) {
+        return controladorTipoCatalogo.obtenerTiposCatalogos(criterio, 24, pagina);
+    }
+
+    public ControladorTipoCatalogo getControladorTipoCatalogo() {
+        return controladorTipoCatalogo;
+    }
+
+    public ControladorCatalogo getControladorCatalogo() {
+        return controladorCatalogo;
     }
     
 }

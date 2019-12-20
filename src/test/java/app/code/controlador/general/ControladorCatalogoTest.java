@@ -48,8 +48,8 @@ public class ControladorCatalogoTest {
         System.out.println("getEntityManager");
         ControladorCatalogo instance = null;
         EntityManager expResult = null;
-        EntityManager result = instance.getEntityManager();
-        assertEquals(expResult, result);
+        //EntityManager result = instance.getEntityManager();
+        //assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -62,7 +62,7 @@ public class ControladorCatalogoTest {
         System.out.println("guardar");
         Catalogo catalogo = null;
         ControladorCatalogo instance = null;
-        instance.guardar(catalogo);
+        //instance.guardar(catalogo);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -92,8 +92,8 @@ public class ControladorCatalogoTest {
         int firstResult = 0;
         ControladorCatalogo instance = null;
         List<Catalogo> expResult = null;
-        List<Catalogo> result = instance.obtenerCatalogosPorRango(maxResults, firstResult);
-        assertEquals(expResult, result);
+       // List<Catalogo> result = instance.obtenerCatalogosPorRango(maxResults, firstResult);
+       // assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -124,8 +124,8 @@ public class ControladorCatalogoTest {
         Long id = null;
         ControladorCatalogo instance = null;
         Catalogo expResult = null;
-        Catalogo result = instance.findCatalogo(id);
-        assertEquals(expResult, result);
+       // Catalogo result = instance.findCatalogo(id);
+       // assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -138,8 +138,8 @@ public class ControladorCatalogoTest {
         System.out.println("getCatalogoCount");
         ControladorCatalogo instance = null;
         int expResult = 0;
-        int result = instance.getCatalogoCount();
-        assertEquals(expResult, result);
+        //int result = instance.getCatalogoCount();
+      // assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

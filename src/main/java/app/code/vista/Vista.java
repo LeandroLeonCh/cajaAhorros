@@ -5,19 +5,18 @@
  */
 package app.code.vista;
 
-import app.code.common.Paginador;
 import app.code.common.TituloTab;
 import app.code.controlador.ControladorFactory;
-import app.code.vista.general.vistaCatalogos;
+import app.code.vista.administracion.ListaPantallas;
+import app.code.vista.contabilidad.ListaCuentaContable;
+import app.code.vista.general.ListaCatalogos;
+import app.code.vista.administracion.ListaUsuario;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  *
@@ -30,6 +29,7 @@ public class Vista extends javax.swing.JFrame {
 
     // Declarar variables de datos;
     private final ControladorFactory controladorFactory;
+
     /**
      * Creates new form Vista
      */
@@ -40,6 +40,7 @@ public class Vista extends javax.swing.JFrame {
         listaIndices = new HashMap<>();
         this.setLocationRelativeTo(null);
         this.controladorFactory = ControladorFactory.getInstancia();
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,7 +57,12 @@ public class Vista extends javax.swing.JFrame {
         panelOpciones = new javax.swing.JPanel();
         lblNavegador = new javax.swing.JLabel();
         lblTM1 = new javax.swing.JLabel();
-        btnCobrosFios = new javax.swing.JButton();
+        btnCatalogos = new javax.swing.JButton();
+        btnUsuarios = new javax.swing.JButton();
+        btnPantallas = new javax.swing.JButton();
+        btnCuentasContables = new javax.swing.JButton();
+        lblTM2 = new javax.swing.JLabel();
+        lblTM3 = new javax.swing.JLabel();
         PanelPestania = new javax.swing.JTabbedPane();
         PanelInicio = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
@@ -125,27 +131,97 @@ public class Vista extends javax.swing.JFrame {
         lblTM1.setFont(new java.awt.Font("Yu Gothic Medium", 1, 12)); // NOI18N
         lblTM1.setForeground(new java.awt.Color(153, 153, 153));
         lblTM1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/resource/imagen/linea.png"))); // NOI18N
-        lblTM1.setText("ADMINISTRACION");
+        lblTM1.setText("GENERAL");
 
-        btnCobrosFios.setBackground(new java.awt.Color(204, 204, 204));
-        btnCobrosFios.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-        btnCobrosFios.setForeground(new java.awt.Color(202, 202, 202));
-        btnCobrosFios.setText("CATALAGOS");
-        btnCobrosFios.setContentAreaFilled(false);
-        btnCobrosFios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCobrosFios.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        btnCobrosFios.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnCobrosFios.setRequestFocusEnabled(false);
-        btnCobrosFios.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCatalogos.setBackground(new java.awt.Color(204, 204, 204));
+        btnCatalogos.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnCatalogos.setForeground(new java.awt.Color(202, 202, 202));
+        btnCatalogos.setText("CATALAGOS");
+        btnCatalogos.setContentAreaFilled(false);
+        btnCatalogos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCatalogos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnCatalogos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnCatalogos.setRequestFocusEnabled(false);
+        btnCatalogos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCobrosFiosMouseEntered(evt);
+                btnCatalogosMouseEntered(evt);
             }
         });
-        btnCobrosFios.addActionListener(new java.awt.event.ActionListener() {
+        btnCatalogos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCobrosFiosActionPerformed(evt);
+                btnCatalogosActionPerformed(evt);
             }
         });
+
+        btnUsuarios.setBackground(new java.awt.Color(204, 204, 204));
+        btnUsuarios.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnUsuarios.setForeground(new java.awt.Color(202, 202, 202));
+        btnUsuarios.setText("USUARIOS");
+        btnUsuarios.setContentAreaFilled(false);
+        btnUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnUsuarios.setRequestFocusEnabled(false);
+        btnUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnUsuariosMouseEntered(evt);
+            }
+        });
+        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuariosActionPerformed(evt);
+            }
+        });
+
+        btnPantallas.setBackground(new java.awt.Color(204, 204, 204));
+        btnPantallas.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnPantallas.setForeground(new java.awt.Color(202, 202, 202));
+        btnPantallas.setText("PANTALLAS");
+        btnPantallas.setContentAreaFilled(false);
+        btnPantallas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnPantallas.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnPantallas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnPantallas.setRequestFocusEnabled(false);
+        btnPantallas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPantallasMouseEntered(evt);
+            }
+        });
+        btnPantallas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPantallasActionPerformed(evt);
+            }
+        });
+
+        btnCuentasContables.setBackground(new java.awt.Color(204, 204, 204));
+        btnCuentasContables.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnCuentasContables.setForeground(new java.awt.Color(202, 202, 202));
+        btnCuentasContables.setText("CUENTAS CONTABLES");
+        btnCuentasContables.setContentAreaFilled(false);
+        btnCuentasContables.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCuentasContables.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnCuentasContables.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnCuentasContables.setRequestFocusEnabled(false);
+        btnCuentasContables.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCuentasContablesMouseEntered(evt);
+            }
+        });
+        btnCuentasContables.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCuentasContablesActionPerformed(evt);
+            }
+        });
+
+        lblTM2.setFont(new java.awt.Font("Yu Gothic Medium", 1, 12)); // NOI18N
+        lblTM2.setForeground(new java.awt.Color(153, 153, 153));
+        lblTM2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/resource/imagen/linea.png"))); // NOI18N
+        lblTM2.setText("ADMINISTRACION");
+
+        lblTM3.setFont(new java.awt.Font("Yu Gothic Medium", 1, 12)); // NOI18N
+        lblTM3.setForeground(new java.awt.Color(153, 153, 153));
+        lblTM3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/resource/imagen/linea.png"))); // NOI18N
+        lblTM3.setText("CONTABILIDAD");
 
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
@@ -158,10 +234,24 @@ public class Vista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCobrosFios, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblTM1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGap(10, 10, 10)
+                        .addComponent(btnCuentasContables, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblTM3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(btnCatalogos, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(lblTM1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnPantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblTM2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         panelOpcionesLayout.setVerticalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +260,17 @@ public class Vista extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(lblTM1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCobrosFios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCatalogos, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(lblTM2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblTM3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCuentasContables, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -265,13 +365,13 @@ public class Vista extends javax.swing.JFrame {
         System.out.println("adios");
     }//GEN-LAST:event_formWindowClosed
 
-    private void btnCobrosFiosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCobrosFiosMouseEntered
-        btnCobrosFios.setOpaque(true);
-        btnCobrosFios.setForeground(Color.BLACK);
-    }//GEN-LAST:event_btnCobrosFiosMouseEntered
+    private void btnCatalogosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCatalogosMouseEntered
+        btnCatalogos.setOpaque(true);
+        btnCatalogos.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnCatalogosMouseEntered
 
-    private void btnCobrosFiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrosFiosActionPerformed
-        PanelPestania.addTab("", new vistaCatalogos(this.controladorFactory.GENERAL));
+    private void btnCatalogosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatalogosActionPerformed
+        PanelPestania.addTab("", new ListaCatalogos(this.controladorFactory.GENERAL));
         TituloTab titulo = new TituloTab("  CATALOGOS  ");
         titulo.addActionListener(new ActionListener() {
             @Override
@@ -280,7 +380,57 @@ public class Vista extends javax.swing.JFrame {
             }
         });
         PanelPestania.setTabComponentAt(PanelPestania.getTabCount() - 1, titulo);
-    }//GEN-LAST:event_btnCobrosFiosActionPerformed
+    }//GEN-LAST:event_btnCatalogosActionPerformed
+
+    private void btnUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUsuariosMouseEntered
+
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
+        // TODO add your handling code here:
+        PanelPestania.addTab("", new ListaUsuario(this.controladorFactory.ADMINISTRACION.getControladorUsuario()));
+        TituloTab titulo = new TituloTab("  USUARIOS  ");
+        titulo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                PanelPestania.remove(PanelPestania.indexOfTabComponent(titulo));
+            }
+        });
+        PanelPestania.setTabComponentAt(PanelPestania.getTabCount() - 1, titulo);        
+    }//GEN-LAST:event_btnUsuariosActionPerformed
+
+    private void btnPantallasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPantallasMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPantallasMouseEntered
+
+    private void btnPantallasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPantallasActionPerformed
+         PanelPestania.addTab("", new ListaPantallas(this.controladorFactory.ADMINISTRACION.getControladorPantalla()));
+        TituloTab titulo = new TituloTab("  CUENTAS_CONTABLES  ");
+        titulo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                PanelPestania.remove(PanelPestania.indexOfTabComponent(titulo));
+            }
+        });
+        PanelPestania.setTabComponentAt(PanelPestania.getTabCount() - 1, titulo);
+    }//GEN-LAST:event_btnPantallasActionPerformed
+
+    private void btnCuentasContablesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCuentasContablesMouseEntered
+         btnPantallas.setOpaque(true);
+        btnPantallas.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnCuentasContablesMouseEntered
+
+    private void btnCuentasContablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentasContablesActionPerformed
+        PanelPestania.addTab("", new ListaCuentaContable(this.controladorFactory.CONTABILIDAD.getControladorCuentaContable()));
+        TituloTab titulo = new TituloTab("  CUENTAS_CONTABLES  ");
+        titulo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                PanelPestania.remove(PanelPestania.indexOfTabComponent(titulo));
+            }
+        });
+        PanelPestania.setTabComponentAt(PanelPestania.getTabCount() - 1, titulo);// TODO add your handling code here:
+    }//GEN-LAST:event_btnCuentasContablesActionPerformed
 
     public void cerrarVentana(int v) {
         if(listaIndices.get(v) != null){
@@ -328,7 +478,10 @@ public class Vista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelInicio;
     private javax.swing.JTabbedPane PanelPestania;
-    private javax.swing.JButton btnCobrosFios;
+    private javax.swing.JButton btnCatalogos;
+    private javax.swing.JButton btnCuentasContables;
+    private javax.swing.JButton btnPantallas;
+    private javax.swing.JButton btnUsuarios;
     private javax.swing.JPanel herramietas;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -340,6 +493,8 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblNavegador;
     private javax.swing.JLabel lblTM1;
+    private javax.swing.JLabel lblTM2;
+    private javax.swing.JLabel lblTM3;
     private javax.swing.JMenuBar menu;
     private javax.swing.JPanel panelOpciones;
     // End of variables declaration//GEN-END:variables

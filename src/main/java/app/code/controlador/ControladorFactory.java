@@ -6,6 +6,8 @@
 package app.code.controlador;
 
 import app.code.controlador.general.LogicaNegocioGeneral;
+import app.code.controlador.administracion.LogicaNegocioAdministracion;
+import app.code.controlador.contabilidad.LogicaNegocioContabilidad;
 import javax.persistence.Persistence;
 import org.hibernate.SessionFactory;
 
@@ -20,15 +22,20 @@ public class ControladorFactory {
     
     // Declaracion de todos los modulos
     public final LogicaNegocioGeneral GENERAL;
+    public final LogicaNegocioAdministracion ADMINISTRACION;
+    public final LogicaNegocioContabilidad CONTABILIDAD;
 
+    
     private ControladorFactory(){
         // Crea la session de la empresa
         SessionFactory sessionAcitive = Persistence
                 .createEntityManagerFactory("caja_ahorros")
                 .unwrap(SessionFactory.class);
         
-        // Instancia los registro de los modulos
+        // Instancia la logica de negocio de los modulos
         this.GENERAL = new LogicaNegocioGeneral(sessionAcitive);
+        this.ADMINISTRACION = new LogicaNegocioAdministracion(sessionAcitive);
+        this.CONTABILIDAD = new LogicaNegocioContabilidad(sessionAcitive);
     }
     
     public static ControladorFactory getInstancia(){

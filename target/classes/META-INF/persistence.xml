@@ -4,6 +4,9 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>app.code.modelo.general.Catalogo</class>
     <class>app.code.modelo.general.TipoCatalogo</class>
+    <class>app.code.modelo.administracion.Pantalla</class>
+    <class>app.code.modelo.administracion.Usuario</class>
+    <class>app.code.modelo.contabilidad.CuentaContable</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/caja_ahorros?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="prueba"/>
