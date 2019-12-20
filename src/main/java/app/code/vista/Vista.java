@@ -10,7 +10,7 @@ import app.code.controlador.ControladorFactory;
 import app.code.vista.administracion.ListaPantallas;
 import app.code.vista.contabilidad.ListaCuentaContable;
 import app.code.vista.general.ListaCatalogos;
-import app.code.vista.administracion.ListaUsuario;
+import app.code.vista.administracion.ListaUsuarios;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -388,7 +388,7 @@ public class Vista extends javax.swing.JFrame {
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         // TODO add your handling code here:
-        PanelPestania.addTab("", new ListaUsuario(this.controladorFactory.ADMINISTRACION.getControladorUsuario()));
+        PanelPestania.addTab("", new ListaUsuarios(this.controladorFactory.ADMINISTRACION.getControladorUsuario()));
         TituloTab titulo = new TituloTab("  USUARIOS  ");
         titulo.addActionListener(new ActionListener() {
             @Override
