@@ -405,7 +405,7 @@ public class Vista extends javax.swing.JFrame {
 
     private void btnPantallasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPantallasActionPerformed
          PanelPestania.addTab("", new ListaPantallas(this.controladorFactory.ADMINISTRACION.getControladorPantalla()));
-        TituloTab titulo = new TituloTab("  CUENTAS_CONTABLES  ");
+        TituloTab titulo = new TituloTab("  PANTALLAS  ");
         titulo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
