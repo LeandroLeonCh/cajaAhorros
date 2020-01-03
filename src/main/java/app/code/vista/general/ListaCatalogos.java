@@ -40,6 +40,9 @@ public class ListaCatalogos extends javax.swing.JPanel {
         pgbCargador.setStringPainted(this.cargarLista);
         pgbCargador.setString("Cargango..");
         
+        this.buscardorTabla.setAccion((criterio) -> {
+            System.out.println(criterio);
+        });
         // Inicializa los datos en la tabla
         modelTablaCatalgos = (DefaultTableModel) tblListaCatalogos.getModel();
         ModelAcctionTable<JPanel> cellRenderModel = new ModelAcctionTable();
@@ -59,7 +62,7 @@ public class ListaCatalogos extends javax.swing.JPanel {
             for ( Catalogo catalogo: listaCatalogos ) {
                 PanelAcctionTable panelAccion = new PanelAcctionTable();
                 panelAccion.agregarAccion(TiposAccion.ELIMINAR, () -> { 
-                    System.out.println("hola1 ");
+                    ///this.eliminar
                 });
                 panelAccion.agregarActivar(catalogo.getActivo(), () -> { 
                     System.out.println("hola2 ");
@@ -91,12 +94,10 @@ public class ListaCatalogos extends javax.swing.JPanel {
         jpnMain = new javax.swing.JScrollPane();
         tblListaCatalogos = new javax.swing.JTable();
         jpnHead = new javax.swing.JPanel();
-        pnlBuscador = new javax.swing.JPanel();
-        txtBuscarC = new javax.swing.JTextField();
-        btnBuscarC = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btngregarC = new javax.swing.JButton();
         btnCleanC1 = new javax.swing.JButton();
+        buscardorTabla = new app.code.common.searchTable();
         jpnFooter = new javax.swing.JPanel();
         sep3 = new javax.swing.JSeparator();
         pgbCargador = new javax.swing.JProgressBar();
@@ -169,54 +170,6 @@ public class ListaCatalogos extends javax.swing.JPanel {
 
         jpnHead.setBackground(new java.awt.Color(210, 228, 238));
 
-        pnlBuscador.setBackground(new java.awt.Color(204, 204, 204));
-
-        txtBuscarC.setBackground(pnlBuscador.getBackground());
-        txtBuscarC.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
-        txtBuscarC.setBorder(null);
-        txtBuscarC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarCActionPerformed(evt);
-            }
-        });
-        txtBuscarC.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarCKeyReleased(evt);
-            }
-        });
-
-        btnBuscarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/resource/imagen/search.png"))); // NOI18N
-        btnBuscarC.setToolTipText("");
-        btnBuscarC.setBorder(null);
-        btnBuscarC.setContentAreaFilled(false);
-        btnBuscarC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBuscarC.setFocusPainted(false);
-        btnBuscarC.setOpaque(true);
-        btnBuscarC.setRequestFocusEnabled(false);
-        btnBuscarC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarCActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlBuscadorLayout = new javax.swing.GroupLayout(pnlBuscador);
-        pnlBuscador.setLayout(pnlBuscadorLayout);
-        pnlBuscadorLayout.setHorizontalGroup(
-            pnlBuscadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBuscadorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtBuscarC, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscarC, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        pnlBuscadorLayout.setVerticalGroup(
-            pnlBuscadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBuscadorLayout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(txtBuscarC, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(btnBuscarC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
         jPanel1.setOpaque(false);
 
         btngregarC.setBackground(new java.awt.Color(0, 51, 102));
@@ -288,19 +241,19 @@ public class ListaCatalogos extends javax.swing.JPanel {
             jpnHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnHeadLayout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(pnlBuscador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 356, Short.MAX_VALUE)
+                .addComponent(buscardorTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jpnHeadLayout.setVerticalGroup(
             jpnHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnHeadLayout.createSequentialGroup()
                 .addGroup(jpnHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpnHeadLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addComponent(pnlBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(buscardorTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jpnFooter.setBackground(new java.awt.Color(210, 228, 238));
@@ -348,10 +301,10 @@ public class ListaCatalogos extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jpnHead, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpnHead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpnMain, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                    .addComponent(jpnMain, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                     .addComponent(sep1))
                 .addComponent(jpnFooter, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -361,23 +314,6 @@ public class ListaCatalogos extends javax.swing.JPanel {
     private void tblListaCatalogosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListaCatalogosMouseReleased
         
     }//GEN-LAST:event_tblListaCatalogosMouseReleased
-
-    private void txtBuscarCKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCKeyReleased
-//        if (cbxBuscarC.getSelectedIndex() == 0) {
-//                listarN(controlU.listaCbuscar(txtBuscarC.getText()));
-//                if (modelL.getSize() > 0) {
-//                    listaNombresC.setSelectedIndex(0);
-//                }
-//            }
-    }//GEN-LAST:event_txtBuscarCKeyReleased
-
-    private void btnBuscarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCActionPerformed
-
-    }//GEN-LAST:event_btnBuscarCActionPerformed
-
-    private void txtBuscarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarCActionPerformed
 
     private void btngregarCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btngregarCMouseEntered
         btngregarC.setOpaque(true);
@@ -405,19 +341,17 @@ public class ListaCatalogos extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarC;
     private javax.swing.JButton btnCleanC1;
     private javax.swing.JButton btngregarC;
+    private app.code.common.searchTable buscardorTabla;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jpnFooter;
     private javax.swing.JPanel jpnHead;
     private javax.swing.JScrollPane jpnMain;
     private app.code.common.Paginador paginador1;
     private javax.swing.JProgressBar pgbCargador;
-    private javax.swing.JPanel pnlBuscador;
     private javax.swing.JSeparator sep1;
     private javax.swing.JSeparator sep3;
     private javax.swing.JTable tblListaCatalogos;
-    private javax.swing.JTextField txtBuscarC;
     // End of variables declaration//GEN-END:variables
 }

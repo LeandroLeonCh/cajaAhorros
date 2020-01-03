@@ -9,8 +9,8 @@ package app.code.common;
  *
  * @author Carlos
  */
-public interface IEventCostomComponent {
+public interface IEventCostomSearch {
     
-    public void ejecutar();
+    public void ejecutar(String criterio);
     
 }
