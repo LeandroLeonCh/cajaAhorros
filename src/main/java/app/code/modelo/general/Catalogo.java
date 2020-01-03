@@ -44,10 +44,9 @@ public class Catalogo extends Auditoria implements Serializable{
         super.setId(id);
     }
         
-    public Catalogo(Long id, boolean activo, String codigo, String nombre, 
+    public Catalogo(Long id, String codigo, String nombre, 
                     String descripcion, TipoCatalogo tipoCatalogo) {
         super.setId(id);
-        super.setActivo(activo);
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;

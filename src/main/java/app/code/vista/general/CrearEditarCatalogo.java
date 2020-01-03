@@ -75,7 +75,6 @@ public class CrearEditarCatalogo extends JFrame {
         txtCodigoCat = new javax.swing.JTextField();
         btnSaveC = new javax.swing.JButton();
         btnCleanC = new javax.swing.JButton();
-        chxC2 = new javax.swing.JCheckBox();
         sep3 = new javax.swing.JSeparator();
         cbxTipoCat = new javax.swing.JComboBox<>();
         chxC1 = new javax.swing.JCheckBox();
@@ -118,13 +117,17 @@ public class CrearEditarCatalogo extends JFrame {
 
         txtCodigoCat.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
 
-        btnSaveC.setBackground(new java.awt.Color(0, 102, 153));
-        btnSaveC.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
-        btnSaveC.setText("GUARDAR");
-        btnSaveC.setToolTipText("Realizar Nueva Transaccion para\\n\nel CLiente");
-        btnSaveC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnSaveC.setBackground(new java.awt.Color(204, 204, 204));
+        btnSaveC.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        btnSaveC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/resource/imagen/linea.png"))); // NOI18N
+        btnSaveC.setText("     GUARDAR");
+        btnSaveC.setBorder(null);
+        btnSaveC.setBorderPainted(false);
         btnSaveC.setContentAreaFilled(false);
         btnSaveC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSaveC.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSaveC.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnSaveC.setOpaque(true);
         btnSaveC.setRequestFocusEnabled(false);
         btnSaveC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -140,12 +143,12 @@ public class CrearEditarCatalogo extends JFrame {
             }
         });
 
-        btnCleanC.setBackground(new java.awt.Color(204, 204, 204));
+        btnCleanC.setBackground(new java.awt.Color(220, 220, 220));
         btnCleanC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/resource/imagen/borrar.png"))); // NOI18N
-        btnCleanC.setToolTipText("Cancelar Transaccion");
         btnCleanC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         btnCleanC.setContentAreaFilled(false);
         btnCleanC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCleanC.setFocusPainted(false);
         btnCleanC.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCleanC.setRequestFocusEnabled(false);
         btnCleanC.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,11 +164,6 @@ public class CrearEditarCatalogo extends JFrame {
                 btnCleanCActionPerformed(evt);
             }
         });
-
-        chxC2.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        chxC2.setForeground(new java.awt.Color(6, 52, 74));
-        chxC2.setText("Segir en la ventana despues de Guardar Datos ");
-        chxC2.setRequestFocusEnabled(false);
 
         chxC1.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         chxC1.setForeground(new java.awt.Color(6, 52, 74));
@@ -187,7 +185,6 @@ public class CrearEditarCatalogo extends JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCleanC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(sep3)
-                    .addComponent(chxC2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -245,13 +242,11 @@ public class CrearEditarCatalogo extends JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblT4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxTipoCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
                 .addComponent(sep3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(chxC2)
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSaveC, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
 
         pack();
@@ -259,14 +254,12 @@ public class CrearEditarCatalogo extends JFrame {
 
     private void btnSaveCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveCMouseEntered
         if (btnSaveC.isEnabled()) {
-            btnSaveC.setForeground(Color.white);
             btnSaveC.setOpaque(true);
         }
     }//GEN-LAST:event_btnSaveCMouseEntered
 
     private void btnSaveCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveCMouseExited
         if (btnSaveC.isEnabled()) {
-            btnSaveC.setForeground(Color.black);
             btnSaveC.setOpaque(false);
         }
     }//GEN-LAST:event_btnSaveCMouseExited
@@ -293,9 +286,7 @@ public class CrearEditarCatalogo extends JFrame {
             registroGeneral.guardarCatalogo(catalogo);
             JOptionPane.showMessageDialog(null, "Usuario agreagdo satisfactoriamente!", "INFO", JOptionPane.INFORMATION_MESSAGE);
             limpiar();
-            if (!chxC2.isSelected()){
-                dispose();
-            }
+            dispose();
         }catch (GeneralExeption ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -343,7 +334,6 @@ public class CrearEditarCatalogo extends JFrame {
     private javax.swing.JButton btnSaveC;
     private javax.swing.JComboBox<TipoCatalogo> cbxTipoCat;
     private javax.swing.JCheckBox chxC1;
-    private javax.swing.JCheckBox chxC2;
     private javax.swing.JLabel lblT1;
     private javax.swing.JLabel lblT2;
     private javax.swing.JLabel lblT3;

@@ -41,7 +41,7 @@ public class ControladorCatalogoTest {
     @Test
     public void testGuardarCatalogo() {
         System.out.println("guardarCatalogo");
-        Catalogo catalogo = new Catalogo("Tets3", "Tets1", "Tets1", 
+        Catalogo catalogo = new Catalogo("Tets5", "Tets1", "Tets1", 
                 new TipoCatalogo(Integer.toUnsignedLong(2))
         );
         boolean resultado = instanciaControlador.guardarCatalogo(catalogo);

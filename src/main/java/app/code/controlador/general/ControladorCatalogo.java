@@ -44,28 +44,19 @@ public final class ControladorCatalogo {
     
     public Catalogo buscarCatalogo(Long id) {
         Session session = getCurrentSession();
-        try {
-            // Arma el query y los joins
-            Criteria criteria = session.createCriteria(Catalogo.class, "CAT")
-                .createAlias("CAT.tipoCatalogo", "TIP");
-            // Agrego las columnas que quiero obtener
-            criteria.setProjection(Projections.projectionList()
+        try { 
+            return (Catalogo) session.createCriteria(Catalogo.class, "CAT")
+            .createCriteria("CAT.tipoCatalogo", "TIP")
+            .setProjection(Projections.projectionList()
                 .add(Projections.property("CAT.id"), "id")
                 .add(Projections.property("CAT.activo"), "activo")
                 .add(Projections.property("CAT.codigo"), "codigo")
                 .add(Projections.property("CAT.nombre"), "nombre")
                 .add(Projections.property("CAT.descripcion"), "descripcion")
-                .add(Projections.property("TIP.id"), "tipoCatalogo.id")
-            );
-            // Agrega los criterios de busqueda
-            criteria.add(Restrictions.eq("CAT.id", id));
-            
-            // Agrega el tipo de resultado a retornar
-            criteria.setResultTransformer(new MultiResultTransformer(Catalogo.class));
-            
-            // Retorna el resultado de la busqueda
-            return (Catalogo) criteria.uniqueResult();
-            
+                .add(Projections.property("TIP.id"), "tipoCatalogo.id"))
+            .add(Restrictions.eq("CAT.id", id))
+            .setResultTransformer(new MultiResultTransformer(Catalogo.class))
+            .uniqueResult();
         } finally {
             session.close();
         }
@@ -108,10 +99,9 @@ public final class ControladorCatalogo {
     public List<Catalogo> obtenerCatalogosPorRango(String criterio, int maxResults, int firstResult, boolean activos) {
         Session session = getCurrentSession();
         try {
-            // Arma el query y los joins
+            // Arma el query
             Criteria criteria = session.createCriteria(Catalogo.class, "CAT")
                 .createAlias("CAT.tipoCatalogo", "TIP", JoinType.INNER_JOIN);
-            // Agrego las columnas que quiero obtener
             criteria.setProjection(Projections.projectionList()
                 .add(Projections.property("CAT.id"), "id")
                 .add(Projections.property("CAT.activo"), "activo")
@@ -125,11 +115,14 @@ public final class ControladorCatalogo {
             if (activos){
                criteria.add(Restrictions.eq("CAT.activo", true));
             }
-            // Agrega los criterios de busqueda
-            criteria.add(Restrictions.or(
-                Restrictions.ilike("CAT.codigo", "%" + criterio + "%"),
-                Restrictions.ilike("CAT.nombre", "%" + criterio + "%"))
-            );
+            if(!criterio.isEmpty()){
+                // Agrega los criterios de busqueda
+                criteria.add(Restrictions.or(
+                    Restrictions.ilike("CAT.codigo", "%" + criterio + "%"),
+                    Restrictions.ilike("CAT.nombre", "%" + criterio + "%"))
+                );
+             
+            }
             
             // Agrega el tipo de resultado a retornar
             criteria.setResultTransformer(new MultiResultTransformer(Catalogo.class));
@@ -151,9 +144,8 @@ public final class ControladorCatalogo {
         Session session = getCurrentSession();
         try {
             // Arma el query y los joins
-            Criteria criteria = session.createCriteria(Catalogo.class, "CAT");
-            //Agrego los atributos que quiero retornar
-            criteria.setProjection(Projections.count("CAT.id"));
+            Criteria criteria = session.createCriteria(Catalogo.class, "CAT")
+                    .setProjection(Projections.count("CAT.id"));
             // Agrega los criterios de busqueda
             if (activos){
                criteria.add(Restrictions.eq("CAT.activo", true));

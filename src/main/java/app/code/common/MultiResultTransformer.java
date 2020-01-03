@@ -12,14 +12,10 @@ import java.util.Map;
 import org.hibernate.HibernateException;
 import org.hibernate.property.PropertyAccessor;
 import org.hibernate.property.PropertyAccessorFactory;
-import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.hibernate.transform.ResultTransformer;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import javax.persistence.Id;
 /**
@@ -28,24 +24,24 @@ import javax.persistence.Id;
  */
 public class MultiResultTransformer implements ResultTransformer{
 	
-	private final Class<?> resultClass;
-        private final String ALIAS_SEPARATOR = ".";
-        
-        private Integer indexId;
-        private final PropertyAccessor accessor;
-        private final Map<String, Object> registros;
-        private final Map<String, Object> instancia;
-        
-        
-	public MultiResultTransformer(Class resultClass) {
-            this.resultClass = resultClass;
-            this.registros = new HashMap<>();
-            this.instancia =  new HashMap<>();
-            
-            this.indexId = null;
-            this.accessor = PropertyAccessorFactory.getPropertyAccessor("property");
-             
-	}
+    private final Class<?> resultClass;
+    private final String ALIAS_SEPARATOR = ".";
+
+    private Integer indexId;
+    private final PropertyAccessor accessor;
+    private final Map<String, Object> registros;
+    private final Map<String, Object> instancia;
+
+
+    public MultiResultTransformer(Class resultClass) {
+        this.resultClass = resultClass;
+        this.registros = new HashMap<>();
+        this.instancia = new HashMap<>();
+
+        this.indexId = null;
+        this.accessor = PropertyAccessorFactory.getPropertyAccessor("property");
+
+    }
 	
     /**
      * Convierte un tupla resultante al objeto especifico
@@ -56,28 +52,27 @@ public class MultiResultTransformer implements ResultTransformer{
     @Override
     @SuppressWarnings("unchecked")
     public Object transformTuple(Object[] valores, String[] nombresAtributos) {
-        // Obtiene el index de atributo Identificador
-        if (this.indexId == null){
-            this.indexId = this.obtenerIndexIndentificador(this.resultClass, nombresAtributos);
+        if (indexId == null){
+            indexId = obtenerIndexIndentificador(resultClass, nombresAtributos);
         }
-        // Elimina los registros anteriores
         registros.clear();
-        if(instancia.containsKey("" + valores[this.indexId])){
+        if(instancia.containsKey("" + valores[indexId])){
             for (int i = 0; i < nombresAtributos.length; i++){ 
-                if(nombresAtributos[i].contains(this.ALIAS_SEPARATOR)){
-                    if (this.tieneAtributoLista(this.resultClass, nombresAtributos[i])){
-                       registros.put(nombresAtributos[i], valores[i]); 
+                if(nombresAtributos[i].contains(ALIAS_SEPARATOR)){
+                    if (tieneAtributoLista(resultClass, nombresAtributos[i])){
+                        registros.put(nombresAtributos[i], valores[i]); 
                     }
                 }
             }
-            // Agrega los objetos a las listas
-            agregarObjeto(instancia.get("" + valores[this.indexId]), registros);
+            agregarObjeto(instancia.get("" + valores[indexId]), registros);
         }else{
             for (int i = 0; i < nombresAtributos.length; i++) {
                 registros.put(nombresAtributos[i], valores[i]);
             }
-            instancia.put("" + valores[this.indexId], crearObjeto(this.resultClass, registros));
-            return instancia.get("" + valores[this.indexId]);
+            instancia.put("" + valores[indexId], 
+                crearObjeto(resultClass, registros)
+            );
+            return instancia.get("" + valores[indexId]);
         }
         return null;
     }
@@ -89,9 +84,9 @@ public class MultiResultTransformer implements ResultTransformer{
      */
         @SuppressWarnings("empty-statement")
     private void agregarObjeto(Object objeto, Map<String, Object> registros){    
-        
+        // Recorre los atibutos subClass
         Map<String, Map<String, Object>> subClassAtributos = new HashMap<>();
-        registros.entrySet().forEach((Map.Entry<String, Object> registro) -> {
+        registros.entrySet().forEach(registro -> {
             int indexSeparador = registro.getKey().indexOf(this.ALIAS_SEPARATOR);
             String nombreAtributo = registro.getKey().substring(0, indexSeparador);
             String nombreAtributoClass = registro.getKey().substring(indexSeparador + 1);
@@ -110,10 +105,11 @@ public class MultiResultTransformer implements ResultTransformer{
             Field atributo = obtenerFieldModel(objeto.getClass(), subClassAtributo.getKey());
             Map <String, Object> valores = subClassAtributo.getValue();
             if (atributo.getType().equals(List.class)) {
-                List<Object> lista = (List<Object>) accessor.getGetter(objeto.getClass(), subClassAtributo.getKey())
+                List<Object> lista = (List<Object>) accessor
+                        .getGetter(objeto.getClass(), subClassAtributo.getKey())
                         .get(objeto);
                 Class subClass = lista.get(0).getClass();
-                String nombreIdentificador = this.obtenerNombreIndentificador(subClass, valores.keySet());
+                String nombreIdentificador = obtenerNombreIndentificador(subClass, valores.keySet());
                 Object subObject = buscarSubObject(nombreIdentificador, lista, valores.get(nombreIdentificador));
                 filtrarAtributosLista(subClass, valores);
                 if(subObject == null){
@@ -122,7 +118,8 @@ public class MultiResultTransformer implements ResultTransformer{
                     agregarObjeto(subObject, valores);
                 }
             } else {
-                Object subObject = (Object) accessor.getGetter(objeto.getClass(), subClassAtributo.getKey())
+                Object subObject = (Object) accessor
+                        .getGetter(objeto.getClass(), subClassAtributo.getKey())
                         .get(objeto);
                 agregarObjeto(subObject, valores);
             }
@@ -183,6 +180,11 @@ public class MultiResultTransformer implements ResultTransformer{
         return objetoResult;
     }  
     
+    /**
+     * Filtra los atributos de la lista. 
+     * @param modelo
+     * @param nombresAtributos 
+     */
     private void filtrarAtributosLista(Class modelo, Map<String, Object> nombresAtributos ){
         nombresAtributos.forEach((key, value) -> {
            if(key.contains(this.ALIAS_SEPARATOR)){
@@ -192,6 +194,7 @@ public class MultiResultTransformer implements ResultTransformer{
             } 
         });
     }
+    
     /**
      * Busca si yase agrego el proucto
      * @param nombreIdentificar
@@ -265,6 +268,12 @@ public class MultiResultTransformer implements ResultTransformer{
         throw new HibernateException("EL modelo " + modelo.getSimpleName() + " no tiene el atributo identficador.");
     }
     
+    /**
+     * Obtiene el nombre del atributo identificador
+     * @param modelo
+     * @param nombresAtributos
+     * @return 
+     */
     private String obtenerNombreIndentificador(Class modelo, Set<String> nombresAtributos){
         for (String nombresAtributo : nombresAtributos) {
            if (!nombresAtributo.contains(this.ALIAS_SEPARATOR)) {

@@ -41,7 +41,8 @@ public class Localidad extends Auditoria implements Serializable {
         
     }
 
-    public Localidad(Long id, boolean activo, String codigo, String nombre, TipoCatalogo tipoLocalidad, Localidad localidadPadre) {
+    public Localidad(Long id, boolean activo, String codigo, String nombre, 
+            TipoCatalogo tipoLocalidad, Localidad localidadPadre) {
         super.setId(id);
         super.setActivo(activo);
         this.codigo = codigo;
@@ -49,10 +50,7 @@ public class Localidad extends Auditoria implements Serializable {
         this.tipoLocalidad = tipoLocalidad;
         this.localidadPadre = localidadPadre;
     }
-
-
-    
-            
+        
     public String getCodigo() {
         return codigo;
     }

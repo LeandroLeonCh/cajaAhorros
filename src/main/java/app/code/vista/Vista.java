@@ -5,8 +5,10 @@
  */
 package app.code.vista;
 
+import app.code.common.PanelAcctionTable;
 import app.code.common.TituloTab;
 import app.code.controlador.ControladorFactory;
+import app.code.utils.TiposAccion;
 import app.code.vista.administracion.ListaPantallas;
 import app.code.vista.contabilidad.ListaCuentaContable;
 import app.code.vista.general.ListaCatalogos;
@@ -16,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -39,8 +42,25 @@ public class Vista extends javax.swing.JFrame {
         
         listaIndices = new HashMap<>();
         this.setLocationRelativeTo(null);
+        this.setFocusCycleRoot(true);
         this.controladorFactory = ControladorFactory.getInstancia();
-
+        PanelAcctionTable panelAccion = new PanelAcctionTable();
+                JButton b = new JButton("hola");
+                b.addActionListener((ev) -> { 
+                    System.out.println("hola ");
+                });
+                panelAccion.agregarAccion(TiposAccion.EDITAR, () -> { 
+                    System.out.println("hola1 ");
+                });
+                panelAccion.agregarAccion(TiposAccion.EDITAR, () -> { 
+                    System.out.println("hola2 ");
+                });
+                b = new JButton("hola1");
+                b.addActionListener((ev) -> { 
+                    System.out.println("hola1 ");
+                });
+               // panelAccion.add(b);
+       PanelInicio.add(panelAccion);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,8 +83,13 @@ public class Vista extends javax.swing.JFrame {
         btnCuentasContables = new javax.swing.JButton();
         lblTM2 = new javax.swing.JLabel();
         lblTM3 = new javax.swing.JLabel();
+        lblTM4 = new javax.swing.JLabel();
+        btnCuentasContables1 = new javax.swing.JButton();
+        btnCatalogos1 = new javax.swing.JButton();
         PanelPestania = new javax.swing.JTabbedPane();
         PanelInicio = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        txtBuscarC = new javax.swing.JTextField();
         menu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -223,6 +248,51 @@ public class Vista extends javax.swing.JFrame {
         lblTM3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/resource/imagen/linea.png"))); // NOI18N
         lblTM3.setText("CONTABILIDAD");
 
+        lblTM4.setFont(new java.awt.Font("Yu Gothic Medium", 1, 12)); // NOI18N
+        lblTM4.setForeground(new java.awt.Color(153, 153, 153));
+        lblTM4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/app/resource/imagen/linea.png"))); // NOI18N
+        lblTM4.setText("TRANSACCIONES");
+
+        btnCuentasContables1.setBackground(new java.awt.Color(204, 204, 204));
+        btnCuentasContables1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnCuentasContables1.setForeground(new java.awt.Color(202, 202, 202));
+        btnCuentasContables1.setText("CUENTAS CONTABLES");
+        btnCuentasContables1.setContentAreaFilled(false);
+        btnCuentasContables1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCuentasContables1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnCuentasContables1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnCuentasContables1.setRequestFocusEnabled(false);
+        btnCuentasContables1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCuentasContables1MouseEntered(evt);
+            }
+        });
+        btnCuentasContables1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCuentasContables1ActionPerformed(evt);
+            }
+        });
+
+        btnCatalogos1.setBackground(new java.awt.Color(204, 204, 204));
+        btnCatalogos1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnCatalogos1.setForeground(new java.awt.Color(202, 202, 202));
+        btnCatalogos1.setText("SOCIOS");
+        btnCatalogos1.setContentAreaFilled(false);
+        btnCatalogos1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCatalogos1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnCatalogos1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnCatalogos1.setRequestFocusEnabled(false);
+        btnCatalogos1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCatalogos1MouseEntered(evt);
+            }
+        });
+        btnCatalogos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCatalogos1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
@@ -233,24 +303,28 @@ public class Vista extends javax.swing.JFrame {
             .addGroup(panelOpcionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTM3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTM4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(btnCuentasContables, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCuentasContables, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCuentasContables1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lblTM3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btnCatalogos, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(lblTM1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnPantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(lblTM2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblTM2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCatalogos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCatalogos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())))
         );
         panelOpcionesLayout.setVerticalGroup(
@@ -261,7 +335,9 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(lblTM1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCatalogos, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCatalogos1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
                 .addComponent(lblTM2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -271,6 +347,10 @@ public class Vista extends javax.swing.JFrame {
                 .addComponent(lblTM3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCuentasContables, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblTM4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCuentasContables1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -285,15 +365,54 @@ public class Vista extends javax.swing.JFrame {
         PanelInicio.setBackground(new java.awt.Color(255, 255, 255));
         PanelInicio.setEnabled(false);
 
+        jPanel2.setBackground(new Color(0, 0, 0, 128));
+
+        txtBuscarC.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
+        txtBuscarC.setForeground(new java.awt.Color(255, 255, 255));
+        txtBuscarC.setBorder(null);
+        txtBuscarC.setOpaque(false);
+        txtBuscarC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarCKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(51, Short.MAX_VALUE)
+                .addComponent(txtBuscarC, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(txtBuscarC, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4))
+        );
+
         javax.swing.GroupLayout PanelInicioLayout = new javax.swing.GroupLayout(PanelInicio);
         PanelInicio.setLayout(PanelInicioLayout);
         PanelInicioLayout.setHorizontalGroup(
             PanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 810, Short.MAX_VALUE)
+            .addGroup(PanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelInicioLayout.createSequentialGroup()
+                    .addGap(212, 212, 212)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(213, Short.MAX_VALUE)))
         );
         PanelInicioLayout.setVerticalGroup(
             PanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 601, Short.MAX_VALUE)
+            .addGroup(PanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelInicioLayout.createSequentialGroup()
+                    .addGap(283, 283, 283)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(283, Short.MAX_VALUE)))
         );
 
         PanelPestania.addTab("  INICIO  ", PanelInicio);
@@ -432,6 +551,31 @@ public class Vista extends javax.swing.JFrame {
         PanelPestania.setTabComponentAt(PanelPestania.getTabCount() - 1, titulo);// TODO add your handling code here:
     }//GEN-LAST:event_btnCuentasContablesActionPerformed
 
+    private void txtBuscarCKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCKeyReleased
+        //        if (cbxBuscarC.getSelectedIndex() == 0) {
+            //                listarN(controlU.listaCbuscar(txtBuscarC.getText()));
+            //                if (modelL.getSize() > 0) {
+                //                    listaNombresC.setSelectedIndex(0);
+                //                }
+            //            }
+    }//GEN-LAST:event_txtBuscarCKeyReleased
+
+    private void btnCuentasContables1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCuentasContables1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCuentasContables1MouseEntered
+
+    private void btnCuentasContables1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentasContables1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCuentasContables1ActionPerformed
+
+    private void btnCatalogos1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCatalogos1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCatalogos1MouseEntered
+
+    private void btnCatalogos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCatalogos1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCatalogos1ActionPerformed
+
     public void cerrarVentana(int v) {
         if(listaIndices.get(v) != null){
         PanelPestania.remove(listaIndices.get(v));
@@ -479,7 +623,9 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JPanel PanelInicio;
     private javax.swing.JTabbedPane PanelPestania;
     private javax.swing.JButton btnCatalogos;
+    private javax.swing.JButton btnCatalogos1;
     private javax.swing.JButton btnCuentasContables;
+    private javax.swing.JButton btnCuentasContables1;
     private javax.swing.JButton btnPantallas;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JPanel herramietas;
@@ -490,12 +636,15 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblNavegador;
     private javax.swing.JLabel lblTM1;
     private javax.swing.JLabel lblTM2;
     private javax.swing.JLabel lblTM3;
+    private javax.swing.JLabel lblTM4;
     private javax.swing.JMenuBar menu;
     private javax.swing.JPanel panelOpciones;
+    private javax.swing.JTextField txtBuscarC;
     // End of variables declaration//GEN-END:variables
 }

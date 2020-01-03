@@ -6,6 +6,7 @@
 package app.code.modelo;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -37,7 +38,6 @@ public abstract class Auditoria {
     
     public boolean guardar(Session session){
         if(this.id == null){
-            this.setActivo(true);
             this.setFechaRegistro(new Date());
             this.setUsuarioRegistro(Long.valueOf(1));
         }
@@ -53,7 +53,7 @@ public abstract class Auditoria {
         this.id = id;
     }
 
-    public boolean isActivo() {
+    public boolean getActivo() {
         return activo;
     }
 
@@ -82,6 +82,24 @@ public abstract class Auditoria {
         int hash = 0;
         hash += (id != null ? this.id.hashCode() : 0);
         return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Auditoria other = (Auditoria) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
 
