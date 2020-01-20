@@ -64,7 +64,6 @@ public class ControladorCuentaContable {
             );
             // Agrega el tipo de resultado a retornar
             criteria.setResultTransformer(new MultiResultTransformer(CuentaContable.class));
-            // Retorna el resultado
             return (CuentaContable) criteria.uniqueResult();
         } finally {
             session.close();

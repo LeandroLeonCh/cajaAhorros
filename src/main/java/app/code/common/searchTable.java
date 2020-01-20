@@ -88,7 +88,6 @@ public class searchTable extends JPanel {
             .addGroup(pnlBuscadorLayout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addComponent(txtBuscar, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-            .addGap(6, 6, 6)
             .addComponent(btnBuscar, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
         );
     }

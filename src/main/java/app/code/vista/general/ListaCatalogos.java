@@ -62,7 +62,7 @@ public class ListaCatalogos extends javax.swing.JPanel {
             for ( Catalogo catalogo: listaCatalogos ) {
                 PanelAcctionTable panelAccion = new PanelAcctionTable();
                 panelAccion.agregarAccion(TiposAccion.ELIMINAR, () -> { 
-                    ///this.eliminar
+                    // this.eliminar
                 });
                 panelAccion.agregarActivar(catalogo.getActivo(), () -> { 
                     System.out.println("hola2 ");
